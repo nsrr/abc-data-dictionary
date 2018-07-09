@@ -1,4 +1,4 @@
-Abc-data-dictionary Data Dictionary
+ABC Data Dictionary
 ======================
 
 [![Build Status](https://travis-ci.org/sleepepi/abc-data-dictionary-data-dictionary.svg?branch=master)](https://travis-ci.org/sleepepi/abc-data-dictionary-data-dictionary)
