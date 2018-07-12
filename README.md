@@ -1,7 +1,7 @@
 ABC Data Dictionary
 ======================
 
-[![Build Status](https://travis-ci.org/sleepepi/abc-data-dictionary-data-dictionary.svg?branch=master)](https://travis-ci.org/sleepepi/abc-data-dictionary-data-dictionary)
+[![Build Status](https://travis-ci.org/sleepepi/abc-data-dictionary.svg?branch=master)](https://travis-ci.org/sleepepi/abc-data-dictionary)
 
 ### Exports
 
