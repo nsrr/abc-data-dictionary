@@ -18,7 +18,7 @@
 libname abc "\\rfawin\bwh-sleepepi-home\projects\trials\abc\Data\SAS\_datasets";
 options nofmterr;
 
-%let version = 0-1-stable;
+%let version = 0.1.0.beta1;
 
 ***************************************************************************************;
 * Grab permanent RedCAP dataset
@@ -54,7 +54,6 @@ set redcap;
 if redcap_event_name = '00_bv_arm_1' and hrbp_studyvisit = 0;
 
   gender = rand_gender;
-  ahi = psgreceiptrdi;
   rand_treatmentarm = tx_txarm;
   surgerydate = tx_lgbmile2;
   studyid = elig_studyid;
@@ -73,7 +72,7 @@ if redcap_event_name = '00_bv_arm_1' and hrbp_studyvisit = 0;
 
   visitdate = 01;
 
-keep studyid visitdate age_base gender rand_treatmentarm surgery_occurred daystotx bmi ahi visitdate_base;
+keep studyid visitdate age_base gender rand_treatmentarm surgery_occurred daystotx bmi visitdate_base;
 run;
 
 data abc_partial_base;
@@ -125,7 +124,6 @@ set redcap;
 if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
   studyid = elig_studyid;
-  ahi = psgreceiptrdi;
   visitdate_nine = hrbp_date;
   format visitdate_nine mmddyy10.;
   format tx_randdate mmddyy10.;
@@ -134,7 +132,7 @@ if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
   visitdate = 09;
 
-keep studyid visitdate bmi ahi visitdate_nine;
+keep studyid visitdate bmi visitdate_nine;
 run;
 
 data abc_psg_09;
@@ -175,7 +173,6 @@ data abc_18;
 set redcap;
 if redcap_event_name = '18_fu_arm_1' and hrbp_studyvisit = 18;
 
-  ahi = psgreceiptrdi;
   studyid = elig_studyid;
   visitdate_eighteen = hrbp_date;
   format visitdate_eighteen mmddyy10.;
@@ -186,7 +183,7 @@ if redcap_event_name = '18_fu_arm_1' and hrbp_studyvisit = 18;
 
   visitdate = 18;
 
- keep studyid visitdate bmi ahi visitdate_eighteen;
+ keep studyid visitdate bmi visitdate_eighteen;
 run;
 
 data abc_psg_18;
