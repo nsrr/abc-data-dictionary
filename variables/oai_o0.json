@@ -1,0 +1,8 @@
+{
+  "id": "oai_o0",
+  "display_name": "Obstructive Apnea Index",
+  "description": "",
+  "type": "numeric",
+  "units": "events per hour",
+  "calculation": "60 * (oarbp + oarop + oanbp + oanop ) / slpprdp"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "hi_h0",
+  "display_name": "Hypopnea Index",
+  "description": "",
+  "type": "numeric",
+  "units": "events per hour",
+  "calculation": "60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp"
+}

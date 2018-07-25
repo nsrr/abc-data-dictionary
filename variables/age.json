@@ -1,0 +1,7 @@
+{
+  "id": "age",
+  "display_name": "Age of participant",
+  "description": "",
+  "type": "numeric",
+  "units": "years"
+}

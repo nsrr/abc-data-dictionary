@@ -1,0 +1,8 @@
+{
+  "id": "cai_c0",
+  "display_name": "Central Apnea Index",
+  "description": "",
+  "type": "numeric",
+  "units": "events per hour",
+  "calculation": "60 * (carbp + carop + canbp + canop ) / slpprdp"
+}

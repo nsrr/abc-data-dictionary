@@ -1,0 +1,7 @@
+{
+  "id": "daystobase_09",
+  "display_name": "Days from baseline to 9-month visit",
+  "description": "",
+  "type": "numeric",
+  "units": "days"
+}
