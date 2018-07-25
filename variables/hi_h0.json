@@ -1,6 +1,6 @@
 {
   "id": "hi_h0",
-  "display_name": "Hypopnea Index",
+  "display_name": "Hypopnea Index (HI) - number of hypopneas per hour of sleep",
   "description": "",
   "type": "numeric",
   "units": "events per hour",

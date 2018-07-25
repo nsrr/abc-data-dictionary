@@ -7,7 +7,7 @@
 *                       for deposition on sleepdata.org.
 * Revision History  :
 *   Date      Author    Revision
-*   
+*
 *******************************************************************************;
 
 *******************************************************************************;
@@ -20,9 +20,9 @@ options nofmterr;
 
 %let version = 0.1.0.beta1;
 
-***************************************************************************************;
+*******************************************************************************;
 * Grab permanent RedCAP dataset
-***************************************************************************************;
+*******************************************************************************;
   data redcap;
     set abc.abcredcap;
   run;
@@ -36,7 +36,7 @@ if redcap_event_name = 'screening_arm_0';
 
   *recode and create demographic variables;
   studyid = elig_studyid;
-  ethnicity = elig_ethnicity; 
+  ethnicity = elig_ethnicity;
 
   if elig_racewhite = 1 then race = 1;
   else if elig_raceblack = 1 then race = 2;
@@ -249,23 +249,24 @@ by studyid;
   drop age_base visitdate_base visitdate_eighteen visitdate daystobase;
 run;
 
+*******************************************************************************;
 *Export dataset;
-*baseline;
+*******************************************************************************;
 proc export data= abc_base_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-00-dataset&version..csv" 
-            dbms=csv 
+            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-00-dataset&version..csv"
+            dbms=csv
             replace;
 run;
 
 proc export data= abc_09_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-09-dataset&version..csv" 
-            dbms=csv 
+            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-09-dataset&version..csv"
+            dbms=csv
             replace;
 run;
 
 proc export data= abc_18_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-18-dataset&version..csv" 
-            dbms=csv 
+            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-18-dataset&version..csv"
+            dbms=csv
             replace;
 run;
 
