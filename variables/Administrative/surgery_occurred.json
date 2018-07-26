@@ -1,0 +1,7 @@
+{
+  "id": "surgery_occurred",
+  "display_name": "Surgery occurred",
+  "description": "",
+  "type": "choices",
+  "domain": "noyes"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "daystotx",
+  "display_name": "Days from baseline to Laparoscopic Gastric Banding (LGB) surgery",
+  "description": "",
+  "type": "numeric",
+  "units": "days"
+}

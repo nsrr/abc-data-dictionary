@@ -7,7 +7,7 @@
 *                       for deposition on sleepdata.org.
 * Revision History  :
 *   Date      Author    Revision
-*
+*   
 *******************************************************************************;
 
 *******************************************************************************;
@@ -20,14 +20,14 @@ options nofmterr;
 
 %let version = 0.1.0.beta1;
 
-*******************************************************************************;
+***************************************************************************************;
 * Grab permanent RedCAP dataset
-*******************************************************************************;
+***************************************************************************************;
   data redcap;
     set abc.abcredcap;
   run;
 
-*******************************************************************************;
+********************************************************************************;
 * Process data from RedCAP
 *******************************************************************************;
 data abc_screening;
@@ -36,7 +36,7 @@ if redcap_event_name = 'screening_arm_0';
 
   *recode and create demographic variables;
   studyid = elig_studyid;
-  ethnicity = elig_ethnicity;
+  ethnicity = elig_ethnicity; 
 
   if elig_racewhite = 1 then race = 1;
   else if elig_raceblack = 1 then race = 2;
@@ -70,9 +70,13 @@ if redcap_event_name = '00_bv_arm_1' and hrbp_studyvisit = 0;
   if surgerydate > . then surgery_occurred = 1;
   else surgery_occurred = 0;
 
+  weight = mean(anth_weight1,anth_weight2);
+
+  height = mean(anth_heightcm1,anth_heightcm2);
+
   visitdate = 01;
 
-keep studyid visitdate age_base gender rand_treatmentarm surgery_occurred daystotx bmi visitdate_base;
+keep studyid visitdate age_base gender rand_treatmentarm surgery_occurred daystotx bmi visitdate_base surgery_occurred daystotx weight height;
 run;
 
 data abc_partial_base;
@@ -80,6 +84,8 @@ set abc_base;
   keep studyid age_base gender rand_treatmentarm visitdate_base;
 run;
 
+proc contents data = abc.abcpsg;
+run;
 data abc_psg_base;
 set abc.abcpsg;
 if studyvisit = 0;
@@ -103,7 +109,7 @@ if studyvisit = 0;
   oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
   hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
-keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0;
+keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
 run;
 
 proc sort data = abc_base;
@@ -130,9 +136,11 @@ if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
   bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
 
+  weight = mean(anth_weight1,anth_weight2);
+
   visitdate = 09;
 
-keep studyid visitdate bmi visitdate_nine;
+keep studyid visitdate bmi visitdate_nine weight;
 run;
 
 data abc_psg_09;
@@ -158,7 +166,7 @@ if studyvisit = 9;
   oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
   hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
-keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0;
+keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
 run;
 
 proc sort data = abc_09;
@@ -181,9 +189,11 @@ if redcap_event_name = '18_fu_arm_1' and hrbp_studyvisit = 18;
 
   bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
 
+  weight = mean(anth_weight1,anth_weight2);
+
   visitdate = 18;
 
- keep studyid visitdate bmi visitdate_eighteen;
+ keep studyid visitdate bmi visitdate_eighteen weight;
 run;
 
 data abc_psg_18;
@@ -209,7 +219,7 @@ if studyvisit = 18;
   oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
   hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
-keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0;
+keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
 run;
 
 proc sort data = abc_18;
@@ -226,7 +236,7 @@ by studyid;
 
   age = age_base;
   if rand_treatmentarm = . then delete;
-  drop age_base visitdate_base visitdate daystotx surgery_occurred;
+  drop age_base visitdate_base visitdate;
 run;
 
 data abc_09_f;
@@ -249,24 +259,23 @@ by studyid;
   drop age_base visitdate_base visitdate_eighteen visitdate daystobase;
 run;
 
-*******************************************************************************;
 *Export dataset;
-*******************************************************************************;
+*baseline;
 proc export data= abc_base_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-00-dataset&version..csv"
-            dbms=csv
+            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-00-dataset&version..csv" 
+            dbms=csv 
             replace;
 run;
 
 proc export data= abc_09_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-09-dataset&version..csv"
-            dbms=csv
+            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-09-dataset&version..csv" 
+            dbms=csv 
             replace;
 run;
 
 proc export data= abc_18_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-18-dataset&version..csv"
-            dbms=csv
+            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-visit-18-dataset&version..csv" 
+            dbms=csv 
             replace;
 run;
 

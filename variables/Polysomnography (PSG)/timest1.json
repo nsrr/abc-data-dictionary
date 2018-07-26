@@ -1,0 +1,7 @@
+{
+  "id": "timest1",
+  "display_name": "Time spent in stage 1 sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "minutes"
+}

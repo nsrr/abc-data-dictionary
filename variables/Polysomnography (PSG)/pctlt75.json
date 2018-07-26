@@ -1,0 +1,7 @@
+{
+  "id": "pctlt75",
+  "display_name": "Percent of sleep time where oxygen saturation was below 75%",
+  "description": "",
+  "type": "numeric",
+  "units": "percent (%)"
+}
