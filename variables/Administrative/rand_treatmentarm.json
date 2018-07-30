@@ -3,5 +3,6 @@
   "display_name": "Randomized Treatment Arm",
   "description": "",
   "type": "choices",
-  "domain": "treatment_arm"
+  "domain": "treatment_arm",
+  "commonly_used": true
 }

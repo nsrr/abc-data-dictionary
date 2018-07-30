@@ -13,13 +13,12 @@
 *******************************************************************************;
 * Establish ABC options and libraries
 *******************************************************************************;
+  *set ABC libraries and options;
+  libname abc "\\rfawin\bwh-sleepepi-home\projects\trials\abc\Data\SAS\_datasets";
+  libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
+  options nofmterr;
 
-*set ABC libraries and options;
-libname abc "\\rfawin\bwh-sleepepi-home\projects\trials\abc\Data\SAS\_datasets";
-libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
-options nofmterr;
-
-%let version = 0.1.0.beta2;
+  %let version = 0.1.0.beta2;
 
 *******************************************************************************;
 * Grab permanent REDCap dataset
