@@ -1,6 +1,6 @@
 {
   "id": "daystosurgery",
-  "display_name": "Days from baseline to Laparoscopic Gastric Banding (LGB) surgery",
+  "display_name": "Days from baseline to laparoscopic gastric banding (LGB) surgery",
   "description": "",
   "type": "numeric",
   "units": "days"

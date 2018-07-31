@@ -1,7 +1,7 @@
 {
   "id": "surgery_occurred",
   "display_name": "Surgery occurred",
-  "description": "",
+  "description": "The subject underwent laparoscopic gastric banding (LGB) surgery.",
   "type": "choices",
   "domain": "noyes"
 }

@@ -1,7 +1,7 @@
 {
   "id": "rand_siteid",
   "display_name": "Site Identifier",
-  "description": "This was a stratification factor for randomization.",
+  "description": "Recruitment site was a stratification factor for randomization.",
   "type": "choices",
   "domain": "siteid",
   "commonly_used": true
