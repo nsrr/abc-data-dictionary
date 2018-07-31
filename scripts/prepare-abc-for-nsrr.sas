@@ -18,7 +18,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.1.0.beta2;
+  %let version = 0.1.0.beta3;
 
 *******************************************************************************;
 * Grab permanent REDCap dataset
@@ -298,10 +298,10 @@ data abc_month09_f;
   by studyid;
 
   daystomonth09 = visitdate_nine - visitdate_base;
-  age = (age_base + (daystobase / 365));
+  age = (age_base + (daystomonth09 / 365));
   format age 8.;
   if visitdate = . then delete;
-  drop studyid age_base visitdate_base visitdate_nine visitdate daystobase;
+  drop studyid age_base visitdate_base visitdate_nine visitdate ;
 run;
 
 proc sort data=abc_month09_f;
@@ -314,10 +314,10 @@ data abc_month18_f;
   by studyid;
 
   daystomonth18 = visitdate_eighteen - visitdate_base;
-  age = (age_base + (daystobase / 365));
+  age = (age_base + (daystomonth18 / 365));
   format age 8.;
   if visitdate = . then delete;
-  drop studyid age_base visitdate_base visitdate_eighteen visitdate daystobase;
+  drop studyid age_base visitdate_base visitdate_eighteen visitdate ;
 run;
 
 proc sort data=abc_month18_f;
@@ -327,20 +327,20 @@ run;
 *******************************************************************************;
 * Export dataset;
 *******************************************************************************;
-proc export data= abc_baseline_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-dataset-&version..csv"
-            dbms=csv
-            replace;
-run;
+  proc export data= abc_baseline_f
+              outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-dataset-&version..csv"
+              dbms=csv
+              replace;
+  run;
 
-proc export data= abc_month09_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month09-dataset-&version..csv"
-            dbms=csv
-            replace;
-run;
+  proc export data= abc_month09_f
+              outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month09-dataset-&version..csv"
+              dbms=csv
+              replace;
+  run;
 
-proc export data= abc_month18_f
-            outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month18-dataset-&version..csv"
-            dbms=csv
-            replace;
-run;
+  proc export data= abc_month18_f
+              outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month18-dataset-&version..csv"
+              dbms=csv
+              replace;
+  run;
