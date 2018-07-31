@@ -133,8 +133,8 @@ proc contents data = abc.abcpsg;
 run;
 
 data abc_psg_baseline;
-set abc.abcpsg;
-if studyvisit = 0;
+  set abc.abcpsg;
+  if studyvisit = 0;
 
   ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
   ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
@@ -155,7 +155,7 @@ if studyvisit = 0;
   oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
   hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
-keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
+  keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
 run;
 
 proc sort data = abc_baseline;
@@ -297,7 +297,7 @@ data abc_month09_f;
   merge abc_screening abc_partial_baseline abc_month09 abc_psg_month09 abcnsrrids_in;
   by studyid;
 
-  daystobase_09 = visitdate_nine - visitdate_base;
+  daystomonth09 = visitdate_nine - visitdate_base;
   age = (age_base + (daystobase / 365));
   format age 8.;
   if visitdate = . then delete;
@@ -313,7 +313,7 @@ data abc_month18_f;
   merge abc_screening abc_partial_baseline abc_month18 abc_psg_month18 abcnsrrids_in;
   by studyid;
 
-  daystobase_18 = visitdate_eighteen - visitdate_base;
+  daystomonth18 = visitdate_eighteen - visitdate_base;
   age = (age_base + (daystobase / 365));
   format age 8.;
   if visitdate = . then delete;
