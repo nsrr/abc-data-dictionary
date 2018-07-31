@@ -18,7 +18,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.1.0.beta3;
+  %let version = 0.1.0.beta4;
 
 *******************************************************************************;
 * Grab permanent REDCap dataset
@@ -72,257 +72,259 @@
   run;
 
 *******************************************************************************;
-* Process data from RedCAP
+* Process data from REDCap
 *******************************************************************************;
-data abc_screening;
+  data abc_screening;
+    set redcap;
+    if redcap_event_name = 'screening_arm_0';
+
+    *recode and create demographic variables;
+    studyid = elig_studyid;
+    ethnicity = elig_ethnicity;
+
+    if elig_racewhite = 1 then race = 1;
+    else if elig_raceblack = 1 then race = 2;
+    else race = 3;
+
+    keep studyid ethnicity race;
+  run;
+
+  proc sort data = abc_screening;
+    by studyid;
+  run;
+
+  data abc_baseline;
+    set redcap;
+    if redcap_event_name = '00_bv_arm_1' and hrbp_studyvisit = 0;
+
+    visitnumber = 0;
+    gender = rand_gender;
+    rand_treatmentarm = tx_txarm;
+    surgerydate = tx_lgbmile2;
+    studyid = elig_studyid;
+    rand_siteid = rand_siteid - 2;
+
+    visitdate_base = tx_randdate;
+    format visitdate_base mmddyy10.;
+
+    age_base = (tx_randdate - rand_date_of_birth) / 365.25;
+
+    bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
+
+    daystosurgery = surgerydate - visitdate_base;
+
+    if surgerydate > . then surgery_occurred = 1;
+    else surgery_occurred = 0;
+
+    weight = mean(anth_weight1,anth_weight2);
+
+    height = mean(anth_heightcm1,anth_heightcm2);
+
+    visitdate = 01;
+
+    keep studyid visitnumber visitdate age_base gender rand_treatmentarm surgery_occurred 
+      daystosurgery bmi visitdate_base surgery_occurred weight height rand_siteid;
+  run;
+
+  data abc_partial_baseline;
+    set abc_baseline;
+    keep studyid age_base gender rand_treatmentarm visitdate_base rand_siteid;
+  run;
+
+  proc contents data = abc.abcpsg;
+  run;
+
+  data abc_psg_baseline;
+    set abc.abcpsg;
+    if studyvisit = 0;
+
+    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+
+    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+
+    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
+
+    cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
+    oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
+    hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
+
+    keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
+  run;
+
+  proc sort data = abc_baseline;
+    by studyid;
+  run;
+
+  proc sort data = abc_partial_baseline;
+    by studyid;
+  run;
+
+  proc sort data = abc_psg_baseline;
+    by studyid;
+  run;
+
+  data abc_month09;
   set redcap;
-  if redcap_event_name = 'screening_arm_0';
+  if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
-  *recode and create demographic variables;
-  studyid = elig_studyid;
-  ethnicity = elig_ethnicity;
+    studyid = elig_studyid;
+    visitnumber = 9;
+    visitdate_nine = hrbp_date;
+    format visitdate_nine mmddyy10.;
+    format tx_randdate mmddyy10.;
 
-  if elig_racewhite = 1 then race = 1;
-  else if elig_raceblack = 1 then race = 2;
-  else race = 3;
+    bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
 
-  keep studyid ethnicity race;
-run;
+    weight = mean(anth_weight1,anth_weight2);
 
-proc sort data = abc_screening;
-  by studyid;
-run;
+    visitdate = 09;
 
-data abc_baseline;
-  set redcap;
-  if redcap_event_name = '00_bv_arm_1' and hrbp_studyvisit = 0;
+  keep studyid visitnumber visitdate bmi visitdate_nine weight;
+  run;
 
-  visitnumber = 0;
-  gender = rand_gender;
-  rand_treatmentarm = tx_txarm;
-  surgerydate = tx_lgbmile2;
-  studyid = elig_studyid;
-
-  visitdate_base = tx_randdate;
-  format visitdate_base mmddyy10.;
-
-  age_base = (tx_randdate - rand_date_of_birth) / 365.25;
-
-  bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
-
-  daystosurgery = surgerydate - visitdate_base;
-
-  if surgerydate > . then surgery_occurred = 1;
-  else surgery_occurred = 0;
-
-  weight = mean(anth_weight1,anth_weight2);
-
-  height = mean(anth_heightcm1,anth_heightcm2);
-
-  visitdate = 01;
-
-  keep studyid visitnumber visitdate age_base gender rand_treatmentarm surgery_occurred daystosurgery bmi visitdate_base surgery_occurred weight height;
-run;
-
-data abc_partial_baseline;
-  set abc_baseline;
-  keep studyid age_base gender rand_treatmentarm visitdate_base;
-run;
-
-proc contents data = abc.abcpsg;
-run;
-
-data abc_psg_baseline;
+  data abc_psg_month09;
   set abc.abcpsg;
-  if studyvisit = 0;
+  if studyvisit = 9;
 
-  ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
 
-  ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
 
-  ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
 
-  cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
-  oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
-  hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
+    cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
+    oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
+    hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
   keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
-run;
+  run;
 
-proc sort data = abc_baseline;
-  by studyid;
-run;
+  proc sort data = abc_month09;
+    by studyid;
+  run;
 
-proc sort data = abc_partial_baseline;
-  by studyid;
-run;
+  proc sort data = abc_psg_month09;
+    by studyid;
+  run;
 
-proc sort data = abc_psg_baseline;
-  by studyid;
-run;
+  data abc_month18;
+    set redcap;
+    if redcap_event_name = '18_fu_arm_1' and hrbp_studyvisit = 18;
 
-data abc_month09;
-set redcap;
-if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
+    studyid = elig_studyid;
+    visitnumber = 18;
+    visitdate_eighteen = hrbp_date;
+    format visitdate_eighteen mmddyy10.;
 
-  studyid = elig_studyid;
-  visitnumber = 9;
-  visitdate_nine = hrbp_date;
-  format visitdate_nine mmddyy10.;
-  format tx_randdate mmddyy10.;
+    age = (visitdate_eighteen - rand_date_of_birth) / 365.25;
 
-  bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
+    bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
 
-  weight = mean(anth_weight1,anth_weight2);
+    weight = mean(anth_weight1,anth_weight2);
 
-  visitdate = 09;
+    visitdate = 18;
 
-keep studyid visitnumber visitdate bmi visitdate_nine weight;
-run;
+   keep studyid visitnumber visitdate bmi visitdate_eighteen weight;
+  run;
 
-data abc_psg_month09;
-set abc.abcpsg;
-if studyvisit = 9;
+  data abc_psg_month18;
+    set abc.abcpsg;
+    if studyvisit = 18;
 
-  ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
 
-  ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
+    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
 
-  ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
+    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
 
-  cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
-  oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
-  hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
+    cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
+    oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
+    hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
-keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
-run;
+  keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
+  run;
 
-proc sort data = abc_month09;
-  by studyid;
-run;
+  proc sort data = abc_month18;
+    by studyid;
+  run;
 
-proc sort data = abc_psg_month09;
-  by studyid;
-run;
+  proc sort data = abc_psg_month18;
+    by studyid;
+  run;
 
-data abc_month18;
-  set redcap;
-  if redcap_event_name = '18_fu_arm_1' and hrbp_studyvisit = 18;
+  data abc_baseline_f;
+    length nsrrid 8.;
+    merge abc_screening abc_baseline abc_psg_baseline abcnsrrids_in;
+    by studyid;
 
-  studyid = elig_studyid;
-  visitnumber = 18;
-  visitdate_eighteen = hrbp_date;
-  format visitdate_eighteen mmddyy10.;
+    age = age_base;
+    format age 8.;
+    if rand_treatmentarm = . then delete;
+    drop studyid age_base visitdate_base visitdate;
+  run;
 
-  age = (visitdate_eighteen - rand_date_of_birth) / 365.25;
+  proc sort data=abc_baseline_f;
+    by nsrrid;
+  run;
 
-  bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
+  data abc_month09_f;
+    length nsrrid 8.;
+    merge abc_screening abc_partial_baseline abc_month09 abc_psg_month09 abcnsrrids_in;
+    by studyid;
 
-  weight = mean(anth_weight1,anth_weight2);
+    daystomonth09 = visitdate_nine - visitdate_base;
+    age = (age_base + (daystomonth09 / 365));
+    format age 8.;
+    if visitdate = . then delete;
+    drop studyid age_base visitdate_base visitdate_nine visitdate ;
+  run;
 
-  visitdate = 18;
+  proc sort data=abc_month09_f;
+    by nsrrid;
+  run;
 
- keep studyid visitnumber visitdate bmi visitdate_eighteen weight;
-run;
+  data abc_month18_f;
+    length nsrrid 8.;
+    merge abc_screening abc_partial_baseline abc_month18 abc_psg_month18 abcnsrrids_in;
+    by studyid;
 
-data abc_psg_month18;
-  set abc.abcpsg;
-  if studyvisit = 18;
+    daystomonth18 = visitdate_eighteen - visitdate_base;
+    age = (age_base + (daystomonth18 / 365));
+    format age 8.;
+    if visitdate = . then delete;
+    drop studyid age_base visitdate_base visitdate_eighteen visitdate ;
+  run;
 
-  ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-  ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-  ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-  ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
-  ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
-
-  cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
-  oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
-  hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
-
-keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
-run;
-
-proc sort data = abc_month18;
-  by studyid;
-run;
-
-proc sort data = abc_psg_month18;
-  by studyid;
-run;
-
-data abc_baseline_f;
-  length nsrrid 8.;
-  merge abc_screening abc_baseline abc_psg_baseline abcnsrrids_in;
-  by studyid;
-
-  age = age_base;
-  format age 8.;
-  if rand_treatmentarm = . then delete;
-  drop studyid age_base visitdate_base visitdate;
-run;
-
-proc sort data=abc_baseline_f;
-  by nsrrid;
-run;
-
-data abc_month09_f;
-  length nsrrid 8.;
-  merge abc_screening abc_partial_baseline abc_month09 abc_psg_month09 abcnsrrids_in;
-  by studyid;
-
-  daystomonth09 = visitdate_nine - visitdate_base;
-  age = (age_base + (daystomonth09 / 365));
-  format age 8.;
-  if visitdate = . then delete;
-  drop studyid age_base visitdate_base visitdate_nine visitdate ;
-run;
-
-proc sort data=abc_month09_f;
-  by nsrrid;
-run;
-
-data abc_month18_f;
-  length nsrrid 8.;
-  merge abc_screening abc_partial_baseline abc_month18 abc_psg_month18 abcnsrrids_in;
-  by studyid;
-
-  daystomonth18 = visitdate_eighteen - visitdate_base;
-  age = (age_base + (daystomonth18 / 365));
-  format age 8.;
-  if visitdate = . then delete;
-  drop studyid age_base visitdate_base visitdate_eighteen visitdate ;
-run;
-
-proc sort data=abc_month18_f;
-  by nsrrid;
-run;
+  proc sort data=abc_month18_f;
+    by nsrrid;
+  run;
 
 *******************************************************************************;
 * Export dataset;
