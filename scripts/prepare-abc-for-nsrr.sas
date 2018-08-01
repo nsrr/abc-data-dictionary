@@ -18,7 +18,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.1.0.rc;
+  %let version = 0.1.0;
 
 *******************************************************************************;
 * Grab permanent REDCap dataset
@@ -122,7 +122,7 @@
 
     visitdate = 01;
 
-    keep studyid visitnumber visitdate age_base gender rand_treatmentarm surgery_occurred 
+    keep studyid visitnumber visitdate age_base gender rand_treatmentarm surgery_occurred
       daystosurgery bmi visitdate_base surgery_occurred weight height rand_siteid;
   run;
 
