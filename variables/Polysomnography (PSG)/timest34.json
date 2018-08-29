@@ -3,5 +3,11 @@
   "display_name": "Time spent in stage 3-4 sleep",
   "description": "",
   "type": "numeric",
-  "units": "minutes"
+  "units": "minutes",
+  "labels": [
+    "slow wave",
+    "sws",
+    "deep",
+    "delta"
+  ]
 }

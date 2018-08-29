@@ -1,5 +1,7 @@
 ## 0.1.1
 
+- Tweak display names and labels for some variables
+
 ## 0.1.0 (August 1, 2018)
 
 - Add initial set of polysomnography variables
