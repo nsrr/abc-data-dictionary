@@ -122,8 +122,29 @@
 
     visitdate = 01;
 
-    keep studyid visitnumber visitdate age_base gender rand_treatmentarm surgery_occurred
-      daystosurgery bmi visitdate_base surgery_occurred weight height rand_siteid;
+    array ess(8) shq_sitread--shq_stoppedcar;
+    do i=1 to 8;
+      if ess(i) < 0 then ess(i) = .;
+    end;
+    drop i;
+    esstotal = sum(of shq_sitread--shq_stoppedcar);
+
+    keep 
+      studyid 
+      visitnumber 
+      visitdate 
+      age_base 
+      gender 
+      rand_treatmentarm 
+      surgery_occurred
+      daystosurgery 
+      bmi 
+      visitdate_base 
+      surgery_occurred 
+      weight 
+      height 
+      rand_siteid
+      shq_sitread--shq_stoppedcar esstotal;
   run;
 
   data abc_partial_baseline;
@@ -173,22 +194,38 @@
   run;
 
   data abc_month09;
-  set redcap;
-  if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
+    set redcap;
+    if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
-    studyid = elig_studyid;
-    visitnumber = 9;
-    visitdate_nine = hrbp_date;
-    format visitdate_nine mmddyy10.;
-    format tx_randdate mmddyy10.;
+      studyid = elig_studyid;
+      visitnumber = 9;
+      visitdate_nine = hrbp_date;
+      format visitdate_nine mmddyy10.;
+      format tx_randdate mmddyy10.;
 
-    bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
+      bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
 
-    weight = mean(anth_weight1,anth_weight2);
+      weight = mean(anth_weight1,anth_weight2);
 
-    visitdate = 09;
+      visitdate = 09;
 
-  keep studyid visitnumber visitdate bmi visitdate_nine weight;
+      array ess(8) shq_sitread--shq_stoppedcar;
+      do i=1 to 8;
+        if ess(i) < 0 then ess(i) = .;
+      end;
+      drop i;
+      esstotal = sum(of shq_sitread--shq_stoppedcar);
+
+    keep 
+      studyid 
+      visitnumber 
+      visitdate 
+      bmi 
+      visitdate_nine 
+      weight
+      shq_sitread--shq_stoppedcar
+      esstotal
+      ;
   run;
 
   data abc_psg_month09;
@@ -242,7 +279,23 @@
 
     visitdate = 18;
 
-   keep studyid visitnumber visitdate bmi visitdate_eighteen weight;
+    array ess(8) shq_sitread--shq_stoppedcar;
+    do i=1 to 8;
+      if ess(i) < 0 then ess(i) = .;
+    end;
+    drop i;
+    esstotal = sum(of shq_sitread--shq_stoppedcar);
+
+    keep 
+      studyid 
+      visitnumber 
+      visitdate 
+      bmi
+      visitdate_eighteen
+      weight
+      shq_sitread--shq_stoppedcar
+      esstotal
+      ;
   run;
 
   data abc_psg_month18;
@@ -327,7 +380,29 @@
   run;
 
 *******************************************************************************;
-* Export dataset;
+* make all variable names lowercase ;
+*******************************************************************************;
+  options mprint;
+  %macro lowcase(dsn);
+       %let dsid=%sysfunc(open(&dsn));
+       %let num=%sysfunc(attrn(&dsid,nvars));
+       %put &num;
+       data &dsn;
+             set &dsn(rename=(
+          %do i = 1 %to &num;
+          %let var&i=%sysfunc(varname(&dsid,&i));    /*function of varname returns the name of a SAS data set variable*/
+          &&var&i=%sysfunc(lowcase(&&var&i))         /*rename all variables*/
+          %end;));
+          %let close=%sysfunc(close(&dsid));
+    run;
+  %mend lowcase;
+
+  %lowcase(abc_baseline_f);
+  %lowcase(abc_month09_f);
+  %lowcase(abc_month18_f);
+
+*******************************************************************************;
+* export datasets ;
 *******************************************************************************;
   proc export data= abc_baseline_f
               outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-dataset-&version..csv"
