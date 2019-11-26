@@ -1,0 +1,7 @@
+{
+  "id": "shq_watchingtv",
+  "display_name": "Chance of dozing while watching TV",
+  "description": "",
+  "type": "choices",
+  "domain": "epworth"
+}

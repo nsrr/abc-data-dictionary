@@ -1,5 +1,7 @@
 ## 0.2.0
 
+- Add Epworth Sleepiness Scale (ESS) variables
+
 ## 0.1.1 (August 30, 2018)
 
 - Tweak display names and labels for some variables
