@@ -1,7 +1,0 @@
-{
-  "id": "timeremp",
-  "display_name": "Percent of sleep time spent in REM sleep",
-  "description": "",
-  "type": "numeric",
-  "units": "percent (%)"
-}

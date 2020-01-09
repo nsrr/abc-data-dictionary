@@ -1,0 +1,7 @@
+{
+  "id": "slptimen2",
+  "display_name": "Time in stage 2 sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "minutes"
+}

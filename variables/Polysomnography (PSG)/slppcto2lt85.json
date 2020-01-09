@@ -1,0 +1,12 @@
+{
+  "id": "slppcto2lt85",
+  "display_name": "Percent of sleep time with oxygen saturation < 85%",
+  "description": "",
+  "type": "numeric",
+  "units": "percent (%)",
+  "labels": [
+    "hypoxia",
+    "hypoxemia",
+    "hypoxic"
+  ]
+}

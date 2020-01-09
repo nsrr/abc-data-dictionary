@@ -1,7 +1,7 @@
 {
   "id": "ethnicity",
-  "display_name": "Hispanic or Latino ethnicity",
-  "description": "",
+  "display_name": "Ethnicity: Hispanic or Latino ",
+  "description": "\"Hispanic or Latino\" is defined as a person of Cuban, Mexican, Puerto Rican, South or Central American or other Spanish culture or origin regardless of race.",
   "type": "choices",
   "domain": "ethnicity",
   "labels": [
