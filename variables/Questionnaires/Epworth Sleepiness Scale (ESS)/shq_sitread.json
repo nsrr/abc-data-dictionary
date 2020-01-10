@@ -1,7 +1,0 @@
-{
-  "id": "shq_sitread",
-  "display_name": "Chance of dozing while sitting and reading",
-  "description": "",
-  "type": "choices",
-  "domain": "epworth"
-}
