@@ -4,9 +4,8 @@
   "description": "Calculated",
   "type": "numeric",
   "units": "events per hour",
-  "calculation": "60 * (carbp + carop + canbp + canop ) / slpprdp",
+  "calculation": "60 * (carbp + carop + canbp + canop) / slptimetotal",
   "labels": [
-    "sdb",
-    "csa"
+    "cai_c0"
   ]
 }

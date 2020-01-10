@@ -11,7 +11,7 @@
 *******************************************************************************;
 
 *******************************************************************************;
-* Establish ABC options and libraries
+* establish ABC options and libraries                                          ;
 *******************************************************************************;
   *set ABC libraries and options;
   libname abc "\\rfawin\bwh-sleepepi-home\projects\trials\abc\Data\SAS\_datasets";
@@ -21,14 +21,14 @@
   %let version = 0.2.0.pre;
 
 *******************************************************************************;
-* Grab permanent REDCap dataset
+* grab permanent REDCap dataset                                                ;
 *******************************************************************************;
   data redcap;
     set abc.abcredcap;
   run;
 
 *******************************************************************************;
-* Create nsrrid for all screened subjects;
+* create nsrrid for all screened subjects                                      ;
 *******************************************************************************;
 
   /*
@@ -72,7 +72,7 @@
   run;
 
 *******************************************************************************;
-* Process data from REDCap
+* process data from REDCap and PSG datasets
 *******************************************************************************;
   data abc_screening;
     set redcap;
@@ -89,8 +89,75 @@
     keep studyid ethnicity race;
   run;
 
-  proc sort data = abc_screening;
+  proc sort data=abc_screening;
     by studyid;
+  run;
+
+  data abc_psg;
+    set abc.abcpsg;
+
+    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+
+    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop) / slpprdp;
+
+    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop) / slpprdp;
+    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop) / slpprdp;
+    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop) / slpprdp;
+    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop) / slpprdp;
+
+    cai_c0u = 60 * (carbp + carop + canbp + canop) / slpprdp;
+    oai_o0u = 60 * (oarbp + oarop + oanbp + oanop) / slpprdp;
+    hi_h3x0u = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
+
+    *rename variables;
+    rename
+      slpprdp = slptimetotal
+      ;
+
+    keep 
+      studyid 
+      studyvisit
+      ahi_a0h3 
+      ahi_a0h4 
+      ahi_a0h3a 
+      ahi_a0h4a 
+      ahi_o0h3 
+      ahi_o0h4 
+      ahi_o0h3a 
+      ahi_o0h4a 
+      ahi_c0h3 
+      ahi_c0h4 
+      ahi_c0h3a 
+      ahi_c0h4a 
+      cai_c0u 
+      oai_o0u 
+      hi_h3x0u
+      slpprdp 
+      timeremp 
+      times34p 
+      timest1p 
+      timest2p 
+      timest2 
+      timest34 
+      timest1 
+      timerem 
+      pctlt90 
+      pctlt85 
+      pctlt80 
+      pctlt75;
+  run;
+
+  proc sort data=abc_psg;
+    by
+      studyid
+      studyvisit
+      ;
   run;
 
   data abc_baseline;
@@ -127,7 +194,7 @@
       if ess(i) < 0 then ess(i) = .;
     end;
     drop i;
-    esstotal = sum(of shq_sitread--shq_stoppedcar);
+    ess_total = sum(of shq_sitread--shq_stoppedcar);
 
     keep 
       studyid 
@@ -144,7 +211,7 @@
       weight 
       height 
       rand_siteid
-      shq_sitread--shq_stoppedcar esstotal;
+      shq_sitread--shq_stoppedcar ess_total;
   run;
 
   data abc_partial_baseline;
@@ -152,44 +219,11 @@
     keep studyid age_base gender rand_treatmentarm visitdate_base rand_siteid;
   run;
 
-  proc contents data = abc.abcpsg;
-  run;
-
-  data abc_psg_baseline;
-    set abc.abcpsg;
-    if studyvisit = 0;
-
-    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
-
-    cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
-    oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
-    hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
-
-    keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
-  run;
-
   proc sort data = abc_baseline;
     by studyid;
   run;
 
   proc sort data = abc_partial_baseline;
-    by studyid;
-  run;
-
-  proc sort data = abc_psg_baseline;
     by studyid;
   run;
 
@@ -214,7 +248,7 @@
         if ess(i) < 0 then ess(i) = .;
       end;
       drop i;
-      esstotal = sum(of shqf_sitread--shqf_stoppedcar);
+      ess_total = sum(of shqf_sitread--shqf_stoppedcar);
       rename 
         shqf_sitread = shq_sitread
         shqf_watchingtv = shq_watchingtv
@@ -234,41 +268,11 @@
       visitdate_nine 
       weight
       shqf_sitread--shqf_stoppedcar
-      esstotal
+      ess_total
       ;
   run;
 
-  data abc_psg_month09;
-  set abc.abcpsg;
-  if studyvisit = 9;
-
-    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
-
-    cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
-    oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
-    hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
-
-  keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
-  run;
-
   proc sort data = abc_month09;
-    by studyid;
-  run;
-
-  proc sort data = abc_psg_month09;
     by studyid;
   run;
 
@@ -294,7 +298,7 @@
         if ess(i) < 0 then ess(i) = .;
       end;
       drop i;
-      esstotal = sum(of shqf_sitread--shqf_stoppedcar);
+      ess_total = sum(of shqf_sitread--shqf_stoppedcar);
       rename 
         shqf_sitread = shq_sitread
         shqf_watchingtv = shq_watchingtv
@@ -314,53 +318,33 @@
       visitdate_eighteen
       weight
       shqf_sitread--shqf_stoppedcar
-      esstotal
+      ess_total
       ;
   run;
 
-  data abc_psg_month18;
-    set abc.abcpsg;
-    if studyvisit = 18;
-
-    ahi_a0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_a0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-    ahi_o0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-    ahi_o0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop ) / slpprdp;
-
-    ahi_c0h3 = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h4 = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h3a = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop ) / slpprdp;
-    ahi_c0h4a = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop ) / slpprdp;
-
-    cai_c0 = 60 * (carbp + carop + canbp + canop ) / slpprdp;
-    oai_o0 = 60 * (oarbp + oarop + oanbp + oanop ) / slpprdp;
-    hi_h0 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
-
-  keep studyid ahi_a0h3 ahi_a0h4 ahi_a0h3a ahi_a0h4a ahi_o0h3 ahi_o0h4 ahi_o0h3a ahi_o0h4a ahi_c0h3 ahi_c0h4 ahi_c0h3a ahi_c0h4a cai_c0 oai_o0 hi_h0 slpprdp timeremp times34p timest1p timest2p timest2 timest34 timest1 timerem pctlt90 pctlt85 pctlt80 pctlt75;
-  run;
-
-  proc sort data = abc_month18;
-    by studyid;
-  run;
-
-  proc sort data = abc_psg_month18;
+  proc sort data=abc_month18;
     by studyid;
   run;
 
   data abc_baseline_f;
     length nsrrid 8.;
-    merge abc_screening abc_baseline abc_psg_baseline abcnsrrids_in;
+    merge 
+      abc_screening 
+      abc_baseline 
+      abc_psg (where=(studyvisit=0))
+      abcnsrrids_in
+      ;
     by studyid;
 
     age = age_base;
     format age 8.;
     if rand_treatmentarm = . then delete;
-    drop studyid age_base visitdate_base visitdate;
+    drop 
+      studyid 
+      age_base 
+      visitdate_base 
+      visitdate
+      ;
   run;
 
   proc sort data=abc_baseline_f;
@@ -369,14 +353,26 @@
 
   data abc_month09_f;
     length nsrrid 8.;
-    merge abc_screening abc_partial_baseline abc_month09 abc_psg_month09 abcnsrrids_in;
+    merge 
+      abc_screening 
+      abc_partial_baseline 
+      abc_month09 
+      abc_psg (where=(studyvisit=9))
+      abcnsrrids_in
+      ;
     by studyid;
 
     daystomonth09 = visitdate_nine - visitdate_base;
     age = (age_base + (daystomonth09 / 365));
     format age 8.;
     if visitdate = . then delete;
-    drop studyid age_base visitdate_base visitdate_nine visitdate ;
+    drop 
+      studyid 
+      age_base 
+      visitdate_base 
+      visitdate_nine 
+      visitdate
+      ;
   run;
 
   proc sort data=abc_month09_f;
@@ -385,14 +381,26 @@
 
   data abc_month18_f;
     length nsrrid 8.;
-    merge abc_screening abc_partial_baseline abc_month18 abc_psg_month18 abcnsrrids_in;
+    merge 
+      abc_screening 
+      abc_partial_baseline 
+      abc_month18 
+      abc_psg (where=(studyvisit=18))
+      abcnsrrids_in
+      ;
     by studyid;
 
     daystomonth18 = visitdate_eighteen - visitdate_base;
     age = (age_base + (daystomonth18 / 365));
     format age 8.;
     if visitdate = . then delete;
-    drop studyid age_base visitdate_base visitdate_eighteen visitdate ;
+    drop 
+      studyid 
+      age_base
+      visitdate_base 
+      visitdate_eighteen 
+      visitdate
+      ;
   run;
 
   proc sort data=abc_month18_f;
@@ -425,19 +433,19 @@
 * export datasets ;
 *******************************************************************************;
   proc export data= abc_baseline_f
-              outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-dataset-&version..csv"
-              dbms=csv
-              replace;
+    outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-dataset-&version..csv"
+    dbms=csv
+    replace;
   run;
 
   proc export data= abc_month09_f
-              outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month09-dataset-&version..csv"
-              dbms=csv
-              replace;
+    outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month09-dataset-&version..csv"
+    dbms=csv
+    replace;
   run;
 
   proc export data= abc_month18_f
-              outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month18-dataset-&version..csv"
-              dbms=csv
-              replace;
+    outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-month18-dataset-&version..csv"
+    dbms=csv
+    replace;
   run;
