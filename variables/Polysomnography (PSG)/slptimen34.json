@@ -6,8 +6,8 @@
   "units": "minutes",
   "labels": [
     "slow wave",
-    "sws",
     "deep",
-    "delta"
+    "delta",
+    "timest34"
   ]
 }

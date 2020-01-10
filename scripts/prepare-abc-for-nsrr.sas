@@ -118,6 +118,18 @@
     *rename variables;
     rename
       slpprdp = slptimetotal
+      timest1p = slppctn1
+      timest2p = slppctn2
+      times34p = slppctn34
+      timeremp = slppctrem
+      timest1 = slptimen1
+      timest2 = slptimen2
+      timest34 = slptimen34
+      timerem = slptimerem
+      pctlt90 = slppcto2lt90
+      pctlt85 = slppcto2lt85
+      pctlt80 = slppcto2lt80
+      pctlt75 = slppcto2lt75
       ;
 
     keep 
@@ -196,6 +208,17 @@
     drop i;
     ess_total = sum(of shq_sitread--shq_stoppedcar);
 
+    rename 
+        shq_sitread = ess_1sitread
+        shq_watchingtv = ess_2watchingtv
+        shq_sitinactive = ess_3sitinactive
+        shq_ridingforhour = ess_4passenger
+        shq_lyingdown = ess_5lyingdown
+        shq_sittalk = ess_6sittalk
+        shq_afterlunch = ess_7afterlunch
+        shq_stoppedcar = ess_8stoppedcar
+        ;
+
     keep 
       studyid 
       visitnumber 
@@ -231,34 +254,35 @@
     set redcap;
     if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
-      studyid = elig_studyid;
-      visitnumber = 9;
-      visitdate_nine = hrbp_date;
-      format visitdate_nine mmddyy10.;
-      format tx_randdate mmddyy10.;
+    studyid = elig_studyid;
+    visitnumber = 9;
+    visitdate_nine = hrbp_date;
+    format visitdate_nine mmddyy10.;
+    format tx_randdate mmddyy10.;
 
-      bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
+    bmi = mean(anth_weight1,anth_weight2) / ((mean(anth_heightcm1,anth_heightcm2)/100)**2);
 
-      weight = mean(anth_weight1,anth_weight2);
+    weight = mean(anth_weight1,anth_weight2);
 
-      visitdate = 09;
+    visitdate = 09;
 
-      array ess(8) shqf_sitread--shqf_stoppedcar;
-      do i=1 to 8;
-        if ess(i) < 0 then ess(i) = .;
-      end;
-      drop i;
-      ess_total = sum(of shqf_sitread--shqf_stoppedcar);
-      rename 
-        shqf_sitread = shq_sitread
-        shqf_watchingtv = shq_watchingtv
-        shqf_sitinactive = shq_sitinactive
-        shqf_ridingforhour = shq_ridingforhour
-        shqf_lyingdown = shq_lyingdown
-        shqf_sittalk = shq_sittalk
-        shqf_afterlunch = shq_afterlunch
-        shqf_stoppedcar = shq_stoppedcar
-        ;
+    array ess(8) shqf_sitread--shqf_stoppedcar;
+    do i=1 to 8;
+      if ess(i) < 0 then ess(i) = .;
+    end;
+    drop i;
+    ess_total = sum(of shqf_sitread--shqf_stoppedcar);
+
+    rename 
+      shqf_sitread = ess_1sitread
+      shqf_watchingtv = ess_2watchingtv
+      shqf_sitinactive = ess_3sitinactive
+      shqf_ridingforhour = ess_4passenger
+      shqf_lyingdown = ess_5lyingdown
+      shqf_sittalk = ess_6sittalk
+      shqf_afterlunch = ess_7afterlunch
+      shqf_stoppedcar = ess_8stoppedcar
+      ;
 
     keep 
       studyid 
@@ -293,22 +317,23 @@
 
     visitdate = 18;
 
-      array ess(8) shqf_sitread--shqf_stoppedcar;
-      do i=1 to 8;
-        if ess(i) < 0 then ess(i) = .;
-      end;
-      drop i;
-      ess_total = sum(of shqf_sitread--shqf_stoppedcar);
-      rename 
-        shqf_sitread = shq_sitread
-        shqf_watchingtv = shq_watchingtv
-        shqf_sitinactive = shq_sitinactive
-        shqf_ridingforhour = shq_ridingforhour
-        shqf_lyingdown = shq_lyingdown
-        shqf_sittalk = shq_sittalk
-        shqf_afterlunch = shq_afterlunch
-        shqf_stoppedcar = shq_stoppedcar
-        ;
+    array ess(8) shqf_sitread--shqf_stoppedcar;
+    do i=1 to 8;
+      if ess(i) < 0 then ess(i) = .;
+    end;
+    drop i;
+    ess_total = sum(of shqf_sitread--shqf_stoppedcar);
+
+    rename 
+      shqf_sitread = ess_1sitread
+      shqf_watchingtv = ess_2watchingtv
+      shqf_sitinactive = ess_3sitinactive
+      shqf_ridingforhour = ess_4passenger
+      shqf_lyingdown = ess_5lyingdown
+      shqf_sittalk = ess_6sittalk
+      shqf_afterlunch = ess_7afterlunch
+      shqf_stoppedcar = ess_8stoppedcar
+      ;
 
     keep 
       studyid 
