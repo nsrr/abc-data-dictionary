@@ -1,6 +1,6 @@
 {
   "id": "height",
-  "display_name": "Participant height",
+  "display_name": "Height",
   "description": "",
   "type": "numeric",
   "units": "centimeters (cm)"
