@@ -5,8 +5,5 @@
   "type": "integer",
   "units": "",
   "calculation": "ess_1sitread + ess_2watchingtv + ess_3sitinactive + ess_4passenger + ess_5lyingdown + ess_6sittalk + ess_7afterlunch + ess_8stoppedcar",
-  "labels": [
-    "ess"
-  ],
   "commonly_used": true
 }
