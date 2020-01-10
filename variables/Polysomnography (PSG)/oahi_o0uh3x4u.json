@@ -1,0 +1,11 @@
+{
+  "id": "oahi_o0uh3x4u",
+  "display_name": "Obstructive Apnea-Hypopnea Index: (obstructive apneas with no oxygen desaturation threshold used and with or without arousal + hypopneas with > 30% airflow reduction and with > 4% desaturation and with or without arousal) / hour of sleep",
+  "description": "Calculated",
+  "type": "numeric",
+  "units": "events per hour",
+  "calculation": "60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop) / slptimetotal",
+  "labels": [
+    "ahi_o0h4"
+  ]
+}
