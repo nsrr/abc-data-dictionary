@@ -18,7 +18,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.2.0.pre;
+  %let version = 0.2.0.beta1;
 
 *******************************************************************************;
 * grab permanent REDCap dataset                                                ;

@@ -1,6 +1,9 @@
 ## 0.2.0
 
 - Add Epworth Sleepiness Scale (ESS) variables
+- Revise variable metadata to match new NSRR standards
+- The CSV dataset is located here:
+    - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.2.0.beta1\
 
 ## 0.1.1 (August 30, 2018)
 
