@@ -1,0 +1,7 @@
+{
+  "id": "bpmavg",
+  "display_name": "Average heart rate during sleep time",
+  "description": "",
+  "type": "numeric",
+  "units": "beats per minute (bpm)"
+}

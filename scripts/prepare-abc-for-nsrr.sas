@@ -162,7 +162,11 @@
       pctlt90 
       pctlt85 
       pctlt80 
-      pctlt75;
+      pctlt75
+      avgsat
+      minsat
+      avgbpm
+      ;
   run;
 
   proc sort data=abc_psg;
