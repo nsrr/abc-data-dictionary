@@ -5,9 +5,6 @@
 * Date Created      : 20180712
 * Purpose           : Prepare Apnea, Bariatric, CPAP Study data
 *                       for deposition on sleepdata.org.
-* Revision History  :
-*   Date      Author    Revision
-*
 *******************************************************************************;
 
 *******************************************************************************;
@@ -18,7 +15,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.2.0.beta1;
+  %let version = 0.2.0.rc;
 
 *******************************************************************************;
 * grab permanent REDCap dataset                                                ;
@@ -117,6 +114,7 @@
 
     *rename variables;
     rename
+      bpmavg = avghr
       slpprdp = slptimetotal
       timest1p = slppctn1
       timest2p = slppctn2
@@ -132,40 +130,41 @@
       pctlt75 = slppcto2lt75
       ;
 
-    keep 
-      studyid 
+    keep
+      studyid
       studyvisit
-      ahi_a0uh3x3u 
-      ahi_a0uh3x4u 
-      ahi_a0uh3x3r 
-      ahi_a0uh3x4r 
-      oahi_o0uh3x3u 
-      oahi_o0uh3x4u 
+      ahi_a0uh3x3u
+      ahi_a0uh3x4u
+      ahi_a0uh3x3r
+      ahi_a0uh3x4r
+      oahi_o0uh3x3u
+      oahi_o0uh3x4u
       oahi_o0uh3x3r
       oahi_o0uh3x4r
-      cahi_c0uh3x3u 
-      cahi_c0uh3x4u 
-      cahi_c0uh3x3r 
+      cahi_c0uh3x3u
+      cahi_c0uh3x4u
+      cahi_c0uh3x3r
       cahi_c0uh3x4r
-      cai_c0u 
-      oai_o0u 
+      cai_c0u
+      oai_o0u
       hi_h3x0u
-      slpprdp 
-      timeremp 
-      times34p 
-      timest1p 
-      timest2p 
-      timest2 
-      timest34 
-      timest1 
-      timerem 
-      pctlt90 
-      pctlt85 
-      pctlt80 
+      bpmavg
+      slpprdp
+      timeremp
+      times34p
+      timest1p
+      timest2p
+      timest2
+      timest34
+      timest1
+      timerem
+      pctlt90
+      pctlt85
+      pctlt80
       pctlt75
       avgsat
       minsat
-      avgbpm
+      bpmavg
       ;
   run;
 
@@ -212,7 +211,7 @@
     drop i;
     ess_total = sum(of shq_sitread--shq_stoppedcar);
 
-    rename 
+    rename
         shq_sitread = ess_1sitread
         shq_watchingtv = ess_2watchingtv
         shq_sitinactive = ess_3sitinactive
@@ -223,20 +222,20 @@
         shq_stoppedcar = ess_8stoppedcar
         ;
 
-    keep 
-      studyid 
-      visitnumber 
-      visitdate 
-      age_base 
-      gender 
-      rand_treatmentarm 
+    keep
+      studyid
+      visitnumber
+      visitdate
+      age_base
+      gender
+      rand_treatmentarm
       surgery_occurred
-      daystosurgery 
-      bmi 
-      visitdate_base 
-      surgery_occurred 
-      weight 
-      height 
+      daystosurgery
+      bmi
+      visitdate_base
+      surgery_occurred
+      weight
+      height
       rand_siteid
       shq_sitread--shq_stoppedcar ess_total;
   run;
@@ -277,7 +276,7 @@
     drop i;
     ess_total = sum(of shqf_sitread--shqf_stoppedcar);
 
-    rename 
+    rename
       shqf_sitread = ess_1sitread
       shqf_watchingtv = ess_2watchingtv
       shqf_sitinactive = ess_3sitinactive
@@ -288,12 +287,12 @@
       shqf_stoppedcar = ess_8stoppedcar
       ;
 
-    keep 
-      studyid 
-      visitnumber 
-      visitdate 
-      bmi 
-      visitdate_nine 
+    keep
+      studyid
+      visitnumber
+      visitdate
+      bmi
+      visitdate_nine
       weight
       shqf_sitread--shqf_stoppedcar
       ess_total
@@ -328,7 +327,7 @@
     drop i;
     ess_total = sum(of shqf_sitread--shqf_stoppedcar);
 
-    rename 
+    rename
       shqf_sitread = ess_1sitread
       shqf_watchingtv = ess_2watchingtv
       shqf_sitinactive = ess_3sitinactive
@@ -339,10 +338,10 @@
       shqf_stoppedcar = ess_8stoppedcar
       ;
 
-    keep 
-      studyid 
-      visitnumber 
-      visitdate 
+    keep
+      studyid
+      visitnumber
+      visitdate
       bmi
       visitdate_eighteen
       weight
@@ -357,9 +356,9 @@
 
   data abc_baseline_f;
     length nsrrid 8.;
-    merge 
-      abc_screening 
-      abc_baseline 
+    merge
+      abc_screening
+      abc_baseline
       abc_psg (where=(studyvisit=0))
       abcnsrrids_in
       ;
@@ -368,11 +367,11 @@
     age = age_base;
     format age 8.;
     if rand_treatmentarm = . then delete;
-    drop 
-      studyid 
+    drop
+      studyid
       studyvisit
-      age_base 
-      visitdate_base 
+      age_base
+      visitdate_base
       visitdate
       ;
   run;
@@ -383,10 +382,10 @@
 
   data abc_month09_f;
     length nsrrid 8.;
-    merge 
-      abc_screening 
-      abc_partial_baseline 
-      abc_month09 
+    merge
+      abc_screening
+      abc_partial_baseline
+      abc_month09
       abc_psg (where=(studyvisit=9))
       abcnsrrids_in
       ;
@@ -396,12 +395,12 @@
     age = (age_base + (daystomonth09 / 365));
     format age 8.;
     if visitdate = . then delete;
-    drop 
-      studyid 
+    drop
+      studyid
       studyvisit
-      age_base 
-      visitdate_base 
-      visitdate_nine 
+      age_base
+      visitdate_base
+      visitdate_nine
       visitdate
       ;
   run;
@@ -412,10 +411,10 @@
 
   data abc_month18_f;
     length nsrrid 8.;
-    merge 
-      abc_screening 
-      abc_partial_baseline 
-      abc_month18 
+    merge
+      abc_screening
+      abc_partial_baseline
+      abc_month18
       abc_psg (where=(studyvisit=18))
       abcnsrrids_in
       ;
@@ -425,12 +424,12 @@
     age = (age_base + (daystomonth18 / 365));
     format age 8.;
     if visitdate = . then delete;
-    drop 
-      studyid 
+    drop
+      studyid
       studyvisit
       age_base
-      visitdate_base 
-      visitdate_eighteen 
+      visitdate_base
+      visitdate_eighteen
       visitdate
       ;
   run;
