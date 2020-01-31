@@ -1,5 +1,5 @@
 {
-  "id": "slptimetotal",
+  "id": "slptime_total",
   "display_name": "Total sleep time",
   "description": "",
   "type": "numeric",

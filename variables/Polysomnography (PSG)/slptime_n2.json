@@ -1,10 +1,10 @@
 {
-  "id": "slptimen1",
-  "display_name": "Time in stage 1 sleep",
+  "id": "slptime_n2",
+  "display_name": "Time in stage 2 sleep",
   "description": "",
   "type": "numeric",
   "units": "minutes",
   "labels": [
-    "timest1"
+    "timest2"
   ]
 }
