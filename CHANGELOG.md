@@ -1,3 +1,5 @@
+## 0.3.0
+
 ## 0.2.0 (January 16, 2020)
 
 - Add Epworth Sleepiness Scale (ESS) variables
