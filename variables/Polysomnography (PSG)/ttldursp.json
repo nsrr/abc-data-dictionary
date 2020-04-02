@@ -6,7 +6,7 @@
   "units": "minutes",
   "labels": [
     "slpprdp",
-    "slptimetotal"
+    "ttldursp"
   ],
   "commonly_used": true
 }

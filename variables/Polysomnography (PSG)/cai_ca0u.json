@@ -4,7 +4,7 @@
   "description": "Calculated - Summary metric of sleep disordered breathing events.",
   "type": "numeric",
   "units": "events per hour",
-  "calculation": "60 * (carbp + carop + canbp + canop) / slptimetotal",
+  "calculation": "60 * (carbp + carop + canbp + canop) / ttldursp",
   "labels": [
     "cai_c0"
   ]

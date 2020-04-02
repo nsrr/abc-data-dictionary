@@ -4,7 +4,7 @@
   "description": "Calculated - Summary metric of sleep disordered breathing events.",
   "type": "numeric",
   "units": "events per hour",
-  "calculation": "60 * (oarbp + oarop + oanbp + oanop) / slptimetotal",
+  "calculation": "60 * (oarbp + oarop + oanbp + oanop) / ttldursp",
   "labels": [
     "oai_o0",
     "oai_o0u"

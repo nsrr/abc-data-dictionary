@@ -93,61 +93,63 @@
   data abc_psg;
     set abc.abcpsg;
 
-    ahi_a0uh3x3u = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
-    ahi_a0uh3x4u = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
-    ahi_a0uh3x3r = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
-    ahi_a0uh3x4r = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_ap0uhp3x3u = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_ap0uhp3x4u = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_ap0uhp3x3r = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
+    ahi_ap0uhp3x4r = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop) / slpprdp;
 
-    oahi_o0uh3x3u = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop) / slpprdp;
-    oahi_o0uh3x4u = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop) / slpprdp;
-    oahi_o0uh3x3r = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop) / slpprdp;
-    oahi_o0uh3x4r = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    oahi_oa0uhp3x3u = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    oahi_oa0uhp3x4u = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    oahi_oa0uhp3x3r = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + oarbp + oarop + oanbp + oanop) / slpprdp;
+    oahi_oa0uhp3x4r = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + oarbp + oarop + oanbp + oanop) / slpprdp;
 
-    cahi_c0uh3x3u = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop) / slpprdp;
-    cahi_c0uh3x4u = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop) / slpprdp;
-    cahi_c0uh3x3r = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop) / slpprdp;
-    cahi_c0uh3x4r = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop) / slpprdp;
+    cahi_ca0uhp3x3u = 60 * (hrembp3 + hrop3 + hnrbp3 + hnrop3 + urbp3 + urop3 + unrbp3 + unrop3 + carbp + carop + canbp + canop) / slpprdp;
+    cahi_ca0uhp3x4u = 60 * (hrembp4 + hrop4 + hnrbp4 + hnrop4 + urbp4 + urop4 + unrbp4 + unrop4 + carbp + carop + canbp + canop) / slpprdp;
+    cahi_ca0uhp3x3r = 60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop) / slpprdp;
+    cahi_ca0uhp3x4r = 60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop) / slpprdp;
 
-    cai_c0u = 60 * (carbp + carop + canbp + canop) / slpprdp;
-    oai_o0u = 60 * (oarbp + oarop + oanbp + oanop) / slpprdp;
-    hi_h3x0u = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
+    cai_ca0u = 60 * (carbp + carop + canbp + canop) / slpprdp;
+    oai_oa0u = 60 * (oarbp + oarop + oanbp + oanop) / slpprdp;
+    hi_hp3x0u = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
     *rename variables;
     rename
-      bpmavg = avghr
-      slpprdp = slptimetotal
-      timest1p = slppctn1
-      timest2p = slppctn2
-      times34p = slppctn34
-      timeremp = slppctrem
-      timest1 = slptimen1
-      timest2 = slptimen2
-      timest34 = slptimen34
-      timerem = slptimerem
-      pctlt90 = slppcto2lt90
-      pctlt85 = slppcto2lt85
-      pctlt80 = slppcto2lt80
-      pctlt75 = slppcto2lt75
+      bpmavg = avglvlhr
+      slpprdp = ttldursp
+      timest1p = pctdursp_s1
+      timest2p = pctdursp_s2
+      times34p = pctdursp_s3
+      timeremp = pctdursp_sr
+      timest1 = ttldursp_s1
+      timest2 = ttldursp_s2
+      timest34 = ttldursp_s3
+      timerem = ttldursp_sr
+      pctlt90 = pctdursp_o90
+      pctlt85 = pctdursp_o85
+      pctlt80 = pctdursp_o80
+      pctlt75 = pctdursp_o75
+      avgsat = avglvlsa
+      minsat = minlvlsa
       ;
 
     keep
       studyid
       studyvisit
-      ahi_a0uh3x3u
-      ahi_a0uh3x4u
-      ahi_a0uh3x3r
-      ahi_a0uh3x4r
-      oahi_o0uh3x3u
-      oahi_o0uh3x4u
-      oahi_o0uh3x3r
-      oahi_o0uh3x4r
-      cahi_c0uh3x3u
-      cahi_c0uh3x4u
-      cahi_c0uh3x3r
-      cahi_c0uh3x4r
-      cai_c0u
-      oai_o0u
-      hi_h3x0u
+      ahi_ap0uhp3x3u
+      ahi_ap0uhp3x4u
+      ahi_ap0uhp3x3r
+      ahi_ap0uhp3x4r
+      oahi_oa0uhp3x3u
+      oahi_oa0uhp3x4u
+      oahi_oa0uhp3x3r
+      oahi_oa0uhp3x4r
+      cahi_ca0uhp3x3u
+      cahi_ca0uhp3x4u
+      cahi_ca0uhp3x3r
+      cahi_ca0uhp3x4r
+      cai_ca0u
+      oai_oa0u
+      hi_hp3x0u
       bpmavg
       slpprdp
       timeremp
