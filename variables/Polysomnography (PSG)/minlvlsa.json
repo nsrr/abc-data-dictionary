@@ -1,0 +1,10 @@
+{
+  "id": "minlvlsa",
+  "display_name": "Minimum oxygen saturation level in total sleep duration",
+  "description": "",
+  "type": "numeric",
+  "units": "percent (%)",
+  "labels": [
+    "minsat"
+  ]
+}

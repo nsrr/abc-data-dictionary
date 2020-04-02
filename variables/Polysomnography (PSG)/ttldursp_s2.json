@@ -1,0 +1,11 @@
+{
+  "id": "ttldursp_s2",
+  "display_name": "Total sleep duration in stage 2 sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "minutes",
+  "labels": [
+    "timest2",
+    "slptimen2"
+  ]
+}
