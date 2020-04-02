@@ -1,0 +1,10 @@
+{
+  "id": "slppctn1",
+  "display_name": "Percent of sleep time in stage 1 sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "percent (%)",
+  "labels": [
+    "timest1p"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "slppcto2lt75",
+  "display_name": "Percent of sleep time with oxygen saturation < 75%",
+  "description": "",
+  "type": "numeric",
+  "units": "percent (%)",
+  "labels": [
+    "hypoxia",
+    "hypoxemia",
+    "hypoxic",
+    "pctlt75"
+  ]
+}
