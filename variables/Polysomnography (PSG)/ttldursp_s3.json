@@ -1,6 +1,6 @@
 {
-  "id": "slptimen34",
-  "display_name": "Time in stage 3-4 sleep",
+  "id": "ttldursp_s3",
+  "display_name": "Total sleep duration in stage 3 - 4 sleep",
   "description": "",
   "type": "numeric",
   "units": "minutes",
@@ -8,6 +8,7 @@
     "slow wave",
     "deep",
     "delta",
-    "timest34"
+    "timest34",
+    "slptimen34"
   ]
 }

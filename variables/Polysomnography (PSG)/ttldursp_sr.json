@@ -1,0 +1,11 @@
+{
+  "id": "ttldursp_sr",
+  "display_name": "Total sleep duration in REM sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "minutes",
+  "labels": [
+    "timerem",
+    "slptimerem"
+  ]
+}

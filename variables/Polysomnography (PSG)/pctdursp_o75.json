@@ -1,0 +1,14 @@
+{
+  "id": "pctdursp_o75",
+  "display_name": "Percent of total sleep duration with oxygen saturation < 75%",
+  "description": "Sleep duration is the interval between sleep onset time and lights on/out-bed time while asleep, conventionally called total sleep time",
+  "type": "numeric",
+  "units": "percent (%)",
+  "labels": [
+    "hypoxia",
+    "hypoxemia",
+    "hypoxic",
+    "pctlt75",
+    "slppcto2lt75"
+  ]
+}

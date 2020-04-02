@@ -1,0 +1,11 @@
+{
+  "id": "avglvlhr",
+  "display_name": "Average heart rate during total sleep duration",
+  "description": "",
+  "type": "numeric",
+  "units": "beats per minute (bpm)",
+  "labels": [
+    "bpmavg",
+    "avghr"
+  ]
+}

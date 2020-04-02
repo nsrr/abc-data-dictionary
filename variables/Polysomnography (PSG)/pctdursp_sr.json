@@ -1,10 +1,11 @@
 {
-  "id": "slppctrem",
+  "id": "pctdursp_sr",
   "display_name": "Percent of sleep time in REM sleep",
   "description": "",
   "type": "numeric",
   "units": "percent (%)",
   "labels": [
-    "timeremp"
+    "timeremp",
+    "slppctrem"
   ]
 }
