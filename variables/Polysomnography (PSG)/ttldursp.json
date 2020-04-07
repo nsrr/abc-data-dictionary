@@ -5,8 +5,7 @@
   "type": "numeric",
   "units": "minutes",
   "labels": [
-    "slpprdp",
-    "ttldursp"
+    "slpprdp, ttldursp"
   ],
   "commonly_used": true
 }

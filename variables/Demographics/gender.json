@@ -4,14 +4,5 @@
   "description": "",
   "type": "choices",
   "domain": "gender",
-  "labels": [
-    "male",
-    "female",
-    "men",
-    "women",
-    "man",
-    "woman",
-    "sex"
-  ],
   "commonly_used": true
 }

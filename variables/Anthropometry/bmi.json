@@ -4,9 +4,5 @@
   "description": "Calculated",
   "type": "numeric",
   "units": "kilograms per meter squared (kg/m2)",
-  "labels": [
-    "height",
-    "weight"
-  ],
   "commonly_used": true
 }

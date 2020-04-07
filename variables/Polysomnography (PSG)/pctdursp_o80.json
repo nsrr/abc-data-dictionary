@@ -1,14 +1,10 @@
 {
   "id": "pctdursp_o80",
   "display_name": "Percent of total sleep duration with oxygen saturation < 80%",
-  "description": "Sleep duration is the interval between sleep onset time and lights on/out-bed time while asleep, conventionally called total sleep time",
+  "description": "Sleep duration is the interval between sleep onset time and lights on/out-bed time while asleep, conventionally called total sleep time.",
   "type": "numeric",
   "units": "percent (%)",
   "labels": [
-    "hypoxia",
-    "hypoxemia",
-    "hypoxic",
-    "pctlt80",
-    "slppcto2lt80"
+    "pctlt80, slppcto2lt80"
   ]
 }

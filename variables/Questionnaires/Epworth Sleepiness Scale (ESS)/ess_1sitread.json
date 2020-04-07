@@ -3,5 +3,8 @@
   "display_name": "Epworth Sleepiness Scale: Chance of dozing while sitting and reading",
   "description": "Item from the Epworth Sleepiness Scale [Johns MW 1991 (PubMed ID: 1798888)](https://www.ncbi.nlm.nih.gov/pubmed/1798888) [All ESS variables from this study](https://sleepdata.org/datasets/abc/variables?search=epworth)",
   "type": "choices",
-  "domain": "epworth"
+  "domain": "epworth",
+  "labels": [
+    "ess"
+  ]
 }

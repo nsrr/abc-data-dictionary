@@ -5,10 +5,6 @@
   "type": "numeric",
   "units": "minutes",
   "labels": [
-    "slow wave",
-    "deep",
-    "delta",
-    "timest34",
-    "slptimen34"
+    "timest34, slptimen34"
   ]
 }

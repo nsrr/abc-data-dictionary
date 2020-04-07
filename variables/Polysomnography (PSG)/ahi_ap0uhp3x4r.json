@@ -1,12 +1,11 @@
 {
   "id": "ahi_ap0uhp3x4r",
-  "display_name": "Apnea-Hypopnea Index: (all apneas with no oxygen desaturation threshold used and with or without arousal + hypopneas with > 30% flow reduction and with >= 4% oxygen desaturation or with arousal) / hour of sleep",
+  "display_name": "Apnea-Hypopnea Index: (All apneas with no oxygen desaturation threshold used and with or without arousal + hypopneas with > 30% flow reduction and with >= 4% oxygen desaturation or with arousal) / hour of sleep",
   "description": "Calculated - Summary metric of sleep disordered breathing events.",
   "type": "numeric",
   "units": "events per hour",
   "calculation": "60 * (hremba4 + hroa4 + hnrba4 + hnroa4 + urbpa4 + uropa4 + unrbpa4 + unropa4 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop  / ttldursp",
   "labels": [
-    "ahi_a0h4a",
-    "ahi_a0uh3x4r"
+    "ahi_a0h4a, ahi_a0uh3x4r"
   ]
 }

@@ -1,11 +1,10 @@
 {
   "id": "pctdursp_s2",
   "display_name": "Percent of total sleep duration in stage 2 sleep",
-  "description": "Sleep duration is the interval between sleep onset time and lights on/out-bed time while asleep, conventionally called total sleep time",
+  "description": "Sleep duration is the interval between sleep onset time and lights on/out-bed time while asleep, conventionally called total sleep time.",
   "type": "numeric",
   "units": "percent (%)",
   "labels": [
-    "timest2p",
-    "slppctn2"
+    "timest2p, slppctn2"
   ]
 }
