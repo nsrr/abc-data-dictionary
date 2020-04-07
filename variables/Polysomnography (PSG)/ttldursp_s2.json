@@ -5,6 +5,7 @@
   "type": "numeric",
   "units": "minutes",
   "labels": [
-    "timest2, slptimen2"
+    "timest2",
+    "slptimen2"
   ]
 }

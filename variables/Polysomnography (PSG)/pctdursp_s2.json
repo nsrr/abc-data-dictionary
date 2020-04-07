@@ -5,6 +5,7 @@
   "type": "numeric",
   "units": "percent (%)",
   "labels": [
-    "timest2p, slppctn2"
+    "timest2p",
+    "slppctn2"
   ]
 }

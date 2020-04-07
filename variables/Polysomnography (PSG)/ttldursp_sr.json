@@ -5,6 +5,7 @@
   "type": "numeric",
   "units": "minutes",
   "labels": [
-    "timerem, slptimerem"
+    "timerem",
+    "slptimerem"
   ]
 }

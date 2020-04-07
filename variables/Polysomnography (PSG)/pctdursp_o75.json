@@ -5,6 +5,7 @@
   "type": "numeric",
   "units": "percent (%)",
   "labels": [
-    "pctlt75, slppcto2lt75"
+    "pctlt75",
+    "slppcto2lt75"
   ]
 }

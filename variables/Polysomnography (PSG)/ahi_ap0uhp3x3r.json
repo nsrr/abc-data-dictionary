@@ -6,6 +6,8 @@
   "units": "events per hour",
   "calculation": "60 * (hremba3 + hroa3 + hnrba3 + hnroa3 + urbpa3 + uropa3 + unrbpa3 + unropa3 + carbp + carop + canbp + canop + oarbp + oarop + oanbp + oanop ) / ttldursp",
   "labels": [
-    "ahi_a0h3a, ahi_a0uh3x3r, aasm15_recommended"
+    "ahi_a0h3a",
+    "ahi_a0uh3x3r",
+    "aasm15_recommended"
   ]
 }
