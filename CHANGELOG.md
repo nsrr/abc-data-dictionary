@@ -1,5 +1,9 @@
 ## 0.3.0
 
+- Update PSG variables with new standardized naming
+- The CSV dataset is located here:
+    - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.3.0.rc\
+
 ## 0.2.0 (January 16, 2020)
 
 - Add Epworth Sleepiness Scale (ESS) variables
