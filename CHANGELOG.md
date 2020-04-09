@@ -1,8 +1,9 @@
-## 0.3.0
+## 0.3.0 (April 9, 2020)
 
 - Update PSG variables with new standardized naming
+- Modify how descriptions link to search queries for similar variables
 - The CSV dataset is located here:
-    - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.3.0.rc\
+    - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.3.0\
 
 ## 0.2.0 (January 16, 2020)
 
