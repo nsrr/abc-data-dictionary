@@ -1,0 +1,12 @@
+{
+  "id": "pctdursp_s1_f1t1",
+  "display_name": "Percent of total sleep duration in stage 1 sleep  from type I polysomnography",
+  "description": "Sleep duration is the interval between sleep onset time and lights on/out-bed time while asleep, conventionally called total sleep time.",
+  "type": "numeric",
+  "units": "percent (%)",
+  "labels": [
+    "pctdursp_s1",
+    "timest1p",
+    "slppctn1"
+  ]
+}

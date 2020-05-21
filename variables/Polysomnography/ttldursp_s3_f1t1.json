@@ -1,0 +1,12 @@
+{
+  "id": "ttldursp_s3_f1t1",
+  "display_name": "Total sleep duration in stage 3 - 4 sleep  from type I polysomnography",
+  "description": "",
+  "type": "numeric",
+  "units": "minutes",
+  "labels": [
+    "ttldursp_s3",
+    "timest34",
+    "slptimen34"
+  ]
+}
