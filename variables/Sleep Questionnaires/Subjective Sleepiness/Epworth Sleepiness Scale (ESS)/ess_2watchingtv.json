@@ -5,6 +5,7 @@
   "type": "choices",
   "domain": "epworth",
   "labels": [
-    "ess"
+    "subjective_sleepiness",
+    "epworth"
   ]
 }
