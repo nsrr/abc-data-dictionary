@@ -6,7 +6,8 @@
   "calculation": "ess_1sitread + ess_2watchingtv + ess_3sitinactive + ess_4passenger + ess_5lyingdown + ess_6sittalk + ess_7afterlunch + ess_8stoppedcar",
   "labels": [
     "subjective_sleepiness",
-    "epworth"
+    "epworth",
+    "ess_total"
   ],
   "commonly_used": true
 }
