@@ -178,6 +178,7 @@
   run;
 
   data abc_baseline;
+  retain studyid;
     set redcap;
     if redcap_event_name = '00_bv_arm_1' and hrbp_studyvisit = 0;
 
@@ -256,6 +257,7 @@
   run;
 
   data abc_month09;
+  retain studyid;
     set redcap;
     if redcap_event_name = '09_fu_arm_1' and hrbp_studyvisit = 09;
 
@@ -306,6 +308,7 @@
   run;
 
   data abc_month18;
+  retain studyid;
     set redcap;
     if redcap_event_name = '18_fu_arm_1' and hrbp_studyvisit = 18;
 
@@ -356,14 +359,85 @@
     by studyid;
   run;
   *add dataset here;
-
+/*Bloods datatset*/
+data abcbloods_baseline;
+retain studyid;
+    set abc.abcbloods;
+    if bloods_studyvisit =  0;
+	studyid=elig_studyid;
+    format bloods_datetest mmddyy10.;
+	drop elig_studyid;
+  run;
+  proc sort data = abcbloods_baseline;
+    by studyid;
+  run;
+ data abcbloods_month09;
+ retain studyid;
+    set abc.abcbloods;
+    if bloods_studyvisit =  9;
+	studyid=elig_studyid;
+    format bloods_datetest mmddyy10.;
+	drop elig_studyid;
+  run;
+  proc sort data = abcbloods_month09;
+    by studyid;
+  run;
+ data abcbloods_month18;
+ retain studyid;
+    set abc.abcbloods;
+    if bloods_studyvisit =  9;
+	studyid=elig_studyid;
+    format bloods_datetest mmddyy10.;
+	drop elig_studyid;
+  run;
+    proc sort data = abcbloods_month18;
+    by studyid;
+  run;
+/*GIQLI*/
+data abcgiqli_baseline;
+retain studyid;
+    set abc.abcbloods;
+    if bloods_studyvisit =  0;
+	studyid=elig_studyid;
+    format bloods_datetest mmddyy10.;
+	drop elig_studyid;
+  run;
+  proc sort data = abcgiqli_baseline;
+    by studyid;
+  run;
+data abcgiqli_month09;
+retain studyid;
+    set abc.abcbloods;
+    if bloods_studyvisit =  0;
+	studyid=elig_studyid;
+    format bloods_datetest mmddyy10.;
+	drop elig_studyid;
+  run;
+  proc sort data = abcgiqli_month09;
+    by studyid;
+  run;
+  data abcgiqli_month18;
+retain studyid;
+    set abc.abcbloods;
+    if bloods_studyvisit =  0;
+	studyid=elig_studyid;
+    format bloods_datetest mmddyy10.;
+	drop elig_studyid;
+  run;
+  proc sort data = abcgiqli_month18;
+    by studyid;
+  run;
+/*Baseline*/
   data abc_baseline_f;
+  retain nsrrid;
     length nsrrid 8.;
     merge
       abc_screening
       abc_baseline
       abc_psg (where=(studyvisit=0))
       abcnsrrids_in
+	  abcbloods_baseline
+	  abcgiqli_baseline
       ;
     by studyid;
 
@@ -384,6 +458,7 @@
   run;
 
   data abc_month09_f;
+   retain nsrrid;
     length nsrrid 8.;
     merge
       abc_screening
@@ -391,6 +466,8 @@
       abc_month09
       abc_psg (where=(studyvisit=9))
       abcnsrrids_in
+      abcbloods_month09
+      abcgiqli_month09
       ;
     by studyid;
 
@@ -413,6 +490,7 @@
   run;
 
   data abc_month18_f;
+  retain nsrrid;
     length nsrrid 8.;
     merge
       abc_screening
@@ -420,6 +498,8 @@
       abc_month18
       abc_psg (where=(studyvisit=18))
       abcnsrrids_in
+      abcbloods_month18
+      abcgiqli_month18
       ;
     by studyid;
 
