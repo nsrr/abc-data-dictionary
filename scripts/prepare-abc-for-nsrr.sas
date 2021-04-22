@@ -438,6 +438,8 @@ retain studyid;
       abcnsrrids_in
 	  abcbloods_baseline
 	  abcgiqli_baseline
+	  abc.abcbloods(where=(bloods_studyvisit=0) rename=(elig_studyid=studyid))
+	  abc.abcgiqli(where=(giqli_studyvisit=0) rename=(elig_studyid=studyid));
       ;
     by studyid;
 
@@ -468,6 +470,8 @@ retain studyid;
       abcnsrrids_in
       abcbloods_month09
       abcgiqli_month09
+      abc.abcbloods(where=(bloods_studyvisit=9) rename=(elig_studyid=studyid))
+	  abc.abcgiqli(where=(giqli_studyvisit=9) rename=(elig_studyid=studyid));
       ;
     by studyid;
 
@@ -500,6 +504,8 @@ retain studyid;
       abcnsrrids_in
       abcbloods_month18
       abcgiqli_month18
+      abc.abcbloods(where=(bloods_studyvisit=18) rename=(elig_studyid=studyid))
+	  abc.abcgiqli(where=(giqli_studyvisit=18) rename=(elig_studyid=studyid));
       ;
     by studyid;
 
