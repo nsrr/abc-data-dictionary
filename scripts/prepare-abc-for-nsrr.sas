@@ -68,6 +68,22 @@
     by studyid;
   run;
 
+/*
+  *checking out race variables;
+  proc contents data= redcap;
+  run;
+
+proc freq data= redcap;
+  table elig_raceamerind  
+		elig_raceasian
+		elig_raceblack
+		elig_racehawaiian  
+		elig_raceother
+		elig_raceotherspecify  
+		elig_racewhite ;
+   run;
+*/
+
 *******************************************************************************;
 * process data from REDCap and PSG datasets
 *******************************************************************************;
@@ -78,14 +94,41 @@
     *recode and create demographic variables;
     studyid = elig_studyid;
     ethnicity = elig_ethnicity;
+	
+	
+	 *making new race with 7 categories;
+    if ethnicity = 1 and elig_raceother = 1 then elig_raceother = 0;
+    race_count = 0;
+    array elig_race(5) elig_raceamerind elig_raceasian elig_raceblack elig_racehawaiian elig_racewhite ;
+    do i = 1 to 5;
+      if elig_race(i) in (0,1) then race_count = race_count + elig_race(i);
+    end;
+    drop i;
 
+    if elig_racewhite = 1 and race_count = 1 then race = 1; *White;
+	if elig_raceamerind = 1 and race_count = 1 then race = 2; *American indian or Alaskan native;
+    if elig_raceblack = 1 and race_count = 1 then race = 3; *Black or african american;
+    if elig_raceasian = 1 and race_count = 1 then race = 4; *Asian;
+	if elig_racehawaii = 1 and race_count = 1 then race =5; *native hawaiian or other pacific islander;
+    if elig_raceother = 1 and race_count = 0 then race = 6; *Other;
+	if race_count > 1 then race = 7;  *Multiple;
+    label race = "Race";
+
+	/*
+	* Old race 3 category variable code not using anymore after harmonization
     if elig_racewhite = 1 then race = 1;
     else if elig_raceblack = 1 then race = 2;
     else race = 3;
+	*/
 
     keep studyid ethnicity race;
   run;
-
+/*
+  proc freq data= abc_screening;
+  table ethnicity
+  		race;
+  run;
+*/
   proc sort data=abc_screening;
     by studyid;
   run;
@@ -529,38 +572,38 @@ retain studyid;
 *******************************************************************************;
 * create harmonized datasets ;
 *******************************************************************************;
-data hbeat_total_base_harmonized;
-	set hbeat_total_base;
+data abc_baseline_f_harmonized;
+	set abc_baseline_f;
 *demographics
 *age;
-*use calc_age; 
+*use age; 
 	format nsrr_age 8.2;
- 	nsrr_age = calc_age;
+ 	nsrr_age = age;
 
 *age_gt89;
 *use age;
 	format nsrr_age_gt89 $100.; 
-	if calc_age gt 89 then nsrr_age_gt89='yes';
-	else if calc_age le 89 then nsrr_age_gt89='no';
+	if age gt 89 then nsrr_age_gt89='yes';
+	else if age le 89 then nsrr_age_gt89='no';
 
 *sex;
-*use male;
+*use gender;
 	format nsrr_sex $100.;
-    if male = 1 then nsrr_sex='male';
-	else if male = 0 then nsrr_sex='female';
+    if gender = 1 then nsrr_sex='male';
+	else if gender = 2 then nsrr_sex='female';
 	else nsrr_sex = 'not reported';
 
 *race;
 *race7 created above for hbeat baseline from race variables;
 	*race3: 1-->"white" 2-->"black or african american" 3-->"other" others --> "not reported";
     format nsrr_race $100.;
-	if race7 = 1 then nsrr_race = 'white';
-    else if race7 = 2 then nsrr_race = 'american indian or alaska native';
-	else if race7 = 3 then nsrr_race = 'black or african american';
-	else if race7 = 4 then nsrr_race = 'asian';
-	else if race7 = 5 then nsrr_race = 'native hawaiian or other pacific islander';
-    else if race7 = 6 then nsrr_race = 'other';
-    else if race7 = 7 then nsrr_race = 'multiple';
+	if race = 1 then nsrr_race = 'white';
+    else if race = 2 then nsrr_race = 'american indian or alaska native';
+	else if race = 3 then nsrr_race = 'black or african american';
+	else if race = 4 then nsrr_race = 'asian';
+	else if race = 5 then nsrr_race = 'native hawaiian or other pacific islander';
+    else if race = 6 then nsrr_race = 'other';
+    else if race = 7 then nsrr_race = 'multiple';
 	else nsrr_race  = 'not reported';
 
 *ethnicity;
@@ -578,31 +621,13 @@ data hbeat_total_base_harmonized;
 
 *clinical data/vital signs
 *bp_systolic;
-*use sysmean;
-	format nsrr_bp_systolic 8.2;
-	nsrr_bp_systolic = sysmean;
-
 *bp_diastolic;
-*use diasmean;
-	format nsrr_bp_diastolic 8.2;
- 	nsrr_bp_diastolic = diasmean;
+	*not available;
 
 *lifestyle and behavioral health
 *current_smoker;
-*use smokedmonth;
-format nsrr_current_smoker $100.;
-if smoked = 2 then nsrr_current_smoker = 'no';
-else if smoked = 1 then nsrr_current_smoker = 'yes';
-else if smokedmonth = 1 then nsrr_current_smoker = 'yes';
-else if smokedmonth = 2 then nsrr_current_smoker = 'no';
-else nsrr_current_smoker = 'not reported';
-
 *ever_smoker;
-*use smoked;
-format nsrr_ever_smoker $100.;
-if smoked = 1 then nsrr_ever_smoker = 'yes';
-else if smoked = 2 then nsrr_ever_smoker = 'no';
-else nsrr_ever_smoker = 'not reported';
+	*not available;
 
 	keep 
 		nsrrid
@@ -612,11 +637,7 @@ else nsrr_ever_smoker = 'not reported';
 		nsrr_sex
 		nsrr_race
 		nsrr_ethnicity
-		nsrr_bp_systolic
-		nsrr_bp_diastolic
 		nsrr_bmi
-		nsrr_current_smoker
-		nsrr_ever_smoker
 		;
 run;
 
@@ -626,22 +647,18 @@ run;
 
 /* Checking for extreme values for continuous variables */
 
-proc means data=hbeat_total_base_harmonized;
+proc means data=abc_baseline_f_harmonized;
 VAR 	nsrr_age
-		nsrr_bmi
-		nsrr_bp_systolic
-		nsrr_bp_diastolic;
+		nsrr_bmi;
 run;
 
 /* Checking categorical variables */
 
-proc freq data=hbeat_total_base_harmonized;
+proc freq data=abc_baseline_f_harmonized;
 table 	nsrr_age_gt89
 		nsrr_sex
 		nsrr_race
-		nsrr_ethnicity
-		nsrr_current_smoker
-		nsrr_ever_smoker;
+		nsrr_ethnicity;
 run;
 
 
