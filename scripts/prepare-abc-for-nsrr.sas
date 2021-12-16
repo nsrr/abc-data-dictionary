@@ -526,6 +526,125 @@ retain studyid;
   proc sort data=abc_month18_f;
     by nsrrid;
   run;
+*******************************************************************************;
+* create harmonized datasets ;
+*******************************************************************************;
+data hbeat_total_base_harmonized;
+	set hbeat_total_base;
+*demographics
+*age;
+*use calc_age; 
+	format nsrr_age 8.2;
+ 	nsrr_age = calc_age;
+
+*age_gt89;
+*use age;
+	format nsrr_age_gt89 $100.; 
+	if calc_age gt 89 then nsrr_age_gt89='yes';
+	else if calc_age le 89 then nsrr_age_gt89='no';
+
+*sex;
+*use male;
+	format nsrr_sex $100.;
+    if male = 1 then nsrr_sex='male';
+	else if male = 0 then nsrr_sex='female';
+	else nsrr_sex = 'not reported';
+
+*race;
+*race7 created above for hbeat baseline from race variables;
+	*race3: 1-->"white" 2-->"black or african american" 3-->"other" others --> "not reported";
+    format nsrr_race $100.;
+	if race7 = 1 then nsrr_race = 'white';
+    else if race7 = 2 then nsrr_race = 'american indian or alaska native';
+	else if race7 = 3 then nsrr_race = 'black or african american';
+	else if race7 = 4 then nsrr_race = 'asian';
+	else if race7 = 5 then nsrr_race = 'native hawaiian or other pacific islander';
+    else if race7 = 6 then nsrr_race = 'other';
+    else if race7 = 7 then nsrr_race = 'multiple';
+	else nsrr_race  = 'not reported';
+
+*ethnicity;
+*use ethnicity;
+	format nsrr_ethnicity $100.;
+    if ethnicity = 1 then nsrr_ethnicity = 'hispanic or latino';
+    else if ethnicity = 2 then nsrr_ethnicity = 'not hispanic or latino';
+	else if ethnicity = . then nsrr_ethnicity = 'not reported';
+
+*anthropometry
+*bmi;
+*use bmi;
+	format nsrr_bmi 10.9;
+ 	nsrr_bmi = bmi;
+
+*clinical data/vital signs
+*bp_systolic;
+*use sysmean;
+	format nsrr_bp_systolic 8.2;
+	nsrr_bp_systolic = sysmean;
+
+*bp_diastolic;
+*use diasmean;
+	format nsrr_bp_diastolic 8.2;
+ 	nsrr_bp_diastolic = diasmean;
+
+*lifestyle and behavioral health
+*current_smoker;
+*use smokedmonth;
+format nsrr_current_smoker $100.;
+if smoked = 2 then nsrr_current_smoker = 'no';
+else if smoked = 1 then nsrr_current_smoker = 'yes';
+else if smokedmonth = 1 then nsrr_current_smoker = 'yes';
+else if smokedmonth = 2 then nsrr_current_smoker = 'no';
+else nsrr_current_smoker = 'not reported';
+
+*ever_smoker;
+*use smoked;
+format nsrr_ever_smoker $100.;
+if smoked = 1 then nsrr_ever_smoker = 'yes';
+else if smoked = 2 then nsrr_ever_smoker = 'no';
+else nsrr_ever_smoker = 'not reported';
+
+	keep 
+		nsrrid
+		visit
+		nsrr_age
+		nsrr_age_gt89
+		nsrr_sex
+		nsrr_race
+		nsrr_ethnicity
+		nsrr_bp_systolic
+		nsrr_bp_diastolic
+		nsrr_bmi
+		nsrr_current_smoker
+		nsrr_ever_smoker
+		;
+run;
+
+*******************************************************************************;
+* checking harmonized datasets ;
+*******************************************************************************;
+
+/* Checking for extreme values for continuous variables */
+
+proc means data=hbeat_total_base_harmonized;
+VAR 	nsrr_age
+		nsrr_bmi
+		nsrr_bp_systolic
+		nsrr_bp_diastolic;
+run;
+
+/* Checking categorical variables */
+
+proc freq data=hbeat_total_base_harmonized;
+table 	nsrr_age_gt89
+		nsrr_sex
+		nsrr_race
+		nsrr_ethnicity
+		nsrr_current_smoker
+		nsrr_ever_smoker;
+run;
+
+
 
 *******************************************************************************;
 * make all variable names lowercase ;
@@ -548,6 +667,7 @@ retain studyid;
   %lowcase(abc_baseline_f);
   %lowcase(abc_month09_f);
   %lowcase(abc_month18_f);
+  %lowcase(abc_baseline_f_harmonized);
 
 *******************************************************************************;
 * export datasets ;
@@ -569,3 +689,9 @@ retain studyid;
     dbms=csv
     replace;
   run;
+
+  proc export data= abc_baseline_f_harmonzied
+  outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-harmonized-&version..csv"
+  dbms=csv
+  replace;
+ run;
