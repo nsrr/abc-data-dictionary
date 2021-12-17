@@ -707,7 +707,7 @@ run;
     replace;
   run;
 
-  proc export data= abc_baseline_f_harmonzied
+  proc export data= abc_baseline_f_harmonized
   outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-harmonized-&version..csv"
   dbms=csv
   replace;
