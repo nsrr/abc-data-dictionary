@@ -631,7 +631,7 @@ data abc_baseline_f_harmonized;
 
 	keep 
 		nsrrid
-		visit
+		visitnumber
 		nsrr_age
 		nsrr_age_gt89
 		nsrr_sex
