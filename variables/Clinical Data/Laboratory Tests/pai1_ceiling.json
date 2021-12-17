@@ -1,0 +1,8 @@
+{
+  "id": "pai1_ceiling",
+  "display_name": "PAI-1 was at ceiling (>20)",
+  "description": "",
+  "type": "choices",
+  "domain": "pai1_ceiling",
+  "units": ""
+}

@@ -1,0 +1,7 @@
+{
+  "id": "bloods_vldlcholcal",
+  "display_name": "VLDL Cholesterol Cal",
+  "description": "",
+  "type": "numeric",
+  "units": "mg/dL"
+}

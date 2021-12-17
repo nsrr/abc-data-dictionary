@@ -1,0 +1,7 @@
+{
+  "id": "bloods_urinecreatin",
+  "display_name": "Creatinine, Urine",
+  "description": "",
+  "type": "numeric",
+  "units": "mg/dL"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "leptin_ceiling",
+  "display_name": "Leptin was at ceiling (>100)",
+  "description": "",
+  "type": "choices",
+  "domain": "leptin_ceiling",
+  "units": ""
+}

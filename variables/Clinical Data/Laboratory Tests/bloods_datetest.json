@@ -1,0 +1,7 @@
+{
+  "id": "bloods_datetest",
+  "display_name": "Date of Test",
+  "description": "",
+  "type": "numeric",
+  "units": ""
+}

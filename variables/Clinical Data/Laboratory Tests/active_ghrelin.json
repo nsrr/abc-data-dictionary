@@ -1,0 +1,7 @@
+{
+  "id": "active_ghrelin",
+  "display_name": "Active Ghrelin",
+  "description": "",
+  "type": "numeric",
+  "units": "pg/mL"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "bloods_urinemicro",
+  "display_name": "Microalbumin, Urine",
+  "description": "",
+  "type": "numeric",
+  "units": "ug/mL"
+}
