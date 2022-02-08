@@ -1,0 +1,13 @@
+{
+  "id": "hi_hp3x0u_f1t1",
+  "display_name": "Hypopnea Index: (hypopneas with > 30% flow reduction and with no oxygen desaturation threshold used and with or without arousal) / hour of sleep from type I polysomnography",
+  "description": "Calculated - Summary metric of sleep disordered breathing events.",
+  "type": "numeric",
+  "units": "events per hour",
+  "calculation": "60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / ttldursp",
+  "labels": [
+    "hi_h0",
+    "hi_h3x0u",
+    "hi_hp3x0u"
+  ]
+}

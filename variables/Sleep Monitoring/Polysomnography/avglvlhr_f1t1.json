@@ -1,0 +1,12 @@
+{
+  "id": "avglvlhr_f1t1",
+  "display_name": "Average heart rate during total sleep duration from type I polysomnography",
+  "description": "",
+  "type": "numeric",
+  "units": "beats per minute (bpm)",
+  "labels": [
+    "bpmavg",
+    "avghr",
+    "avglvlhr"
+  ]
+}

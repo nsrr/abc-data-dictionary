@@ -1,5 +1,9 @@
 ## 0.4.0
 
+- Update PSG variables with new standardized naming
+- Add harmonized core covariates
+- Add harmonized core polysomnography variables
+
 ## 0.3.0 (April 9, 2020)
 
 - Update PSG variables with new standardized naming

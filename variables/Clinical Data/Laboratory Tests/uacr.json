@@ -2,6 +2,5 @@
   "id": "uacr",
   "display_name": "Urine albumin / urine creatinine ratio",
   "description": "(bloods_urinemicro / bloods_urinecreatin) * 100",
-  "type": "numeric",
-  "units": ""
+  "type": "numeric"
 }

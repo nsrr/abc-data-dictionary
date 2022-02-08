@@ -1,0 +1,12 @@
+{
+  "id": "ttldursp_s2_f1t1",
+  "display_name": "Total sleep duration in stage 2 sleep from type I polysomnography",
+  "description": "",
+  "type": "numeric",
+  "units": "minutes",
+  "labels": [
+    "timest2",
+    "slptimen2",
+    "ttldursp_s2"
+  ]
+}

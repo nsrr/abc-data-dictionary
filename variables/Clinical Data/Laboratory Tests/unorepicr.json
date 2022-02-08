@@ -2,6 +2,5 @@
   "id": "unorepicr",
   "display_name": "Urine norepinephrine / urine creatinine ratio",
   "description": "(norepinephrine / bloods_urinecreatin) / 10",
-  "type": "numeric",
-  "units": ""
+  "type": "numeric"
 }

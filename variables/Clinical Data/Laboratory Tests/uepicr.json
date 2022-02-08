@@ -2,6 +2,5 @@
   "id": "uepicr",
   "display_name": "Urine epinephrine / urine creatinine ratio",
   "description": "(epinephrine / bloods_urinecreatin) / 10",
-  "type": "numeric",
-  "units": ""
+  "type": "numeric"
 }

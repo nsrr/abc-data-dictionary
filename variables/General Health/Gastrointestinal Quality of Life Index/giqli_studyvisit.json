@@ -3,5 +3,7 @@
   "display_name": "Study ID",
   "description": "",
   "type": "numeric",
-  "units": ""
+  "labels": [
+    "giqli"
+  ]
 }

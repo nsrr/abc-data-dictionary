@@ -1,7 +1,10 @@
 {
   "id": "giqli_social",
-  "display_name": "giqli_social",
-  "description": "",
+  "display_name": "Gastrointestinal Quality of Life Index: Social function subscore",
+  "description": "The subscale score is based on 4 items from the Gastrointestinal Quality of Life Index. A high score suggests better social function. [Eypasch E et al.,1995 (PubMed ID: 7749697)](https://pubmed.ncbi.nlm.nih.gov/7749697/)<br><br>[Search for all GIQLI variables within this dataset](https://sleepdata.org/datasets/abc/variables?search=giqli)",
   "type": "numeric",
-  "units": ""
+  "labels": [
+    "giqli",
+    "giqli_soc"
+  ]
 }
