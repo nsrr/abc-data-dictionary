@@ -1,8 +1,10 @@
-## 0.4.0
+## 0.4.0 (February 11, 2022)
 
 - Update PSG variables with new standardized naming
 - Add harmonized core covariates
 - Add harmonized core polysomnography variables
+- The CSV dataset is located here:
+    - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.4.0\
 
 ## 0.3.0 (April 9, 2020)
 
