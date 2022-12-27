@@ -15,7 +15,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.4.0;
+  %let version = 0.5.0.pre;
 
 *******************************************************************************;
 * grab permanent REDCap dataset                                                ;
@@ -571,6 +571,7 @@ retain studyid;
 *******************************************************************************;
 * create harmonized datasets ;
 *******************************************************************************;
+* Baseline dataset;
 data abc_baseline_f_harmonized;
 	set abc_baseline_f;
 *demographics
@@ -654,6 +655,26 @@ data abc_baseline_f_harmonized;
 *use ttldursp_f1t1;
   format nsrr_ttldursp_f1 8.2;
   nsrr_ttldursp_f1 = ttldursp_f1t1;
+
+*nsrr_pctdursp_s1;
+*use pctdursp_s1_f1t1;
+  format nsrr_pctdursp_s1 8.2;
+  nsrr_pctdursp_s1 = pctdursp_s1_f1t1;
+
+*nsrr_pctdursp_s2;
+*use pctdursp_s2_f1t1;
+  format nsrr_pctdursp_s2 8.2;
+  nsrr_pctdursp_s2 = pctdursp_s2_f1t1;
+
+*nsrr_pctdursp_s3;
+*use pctdursp_s3_f1t1;
+  format nsrr_pctdursp_s3 8.2;
+  nsrr_pctdursp_s3 = pctdursp_s3_f1t1;
+
+*nsrr_pctdursp_sr;
+*use pctdursp_sr_f1t1;
+  format nsrr_pctdursp_sr 8.2;
+  nsrr_pctdursp_sr = pctdursp_sr_f1t1;
   
 	keep 
 		nsrrid
@@ -669,16 +690,276 @@ data abc_baseline_f_harmonized;
 		nsrr_ahi_hp4u_aasm15
 		nsrr_ahi_hp4r
 		nsrr_ttldursp_f1
+		nsrr_pctdursp_s1
+		nsrr_pctdursp_s2
+		nsrr_pctdursp_s3
+		nsrr_pctdursp_sr
 		;
 run;
 
+* 9 month dataset;
+data abc_month09_f_harmonized;
+	set abc_month09_f;
+*demographics
+*age;
+*use age; 
+	format nsrr_age 8.2;
+ 	if age gt 89 then nsrr_age=90;
+	else if age le 89 then nsrr_age = age;
+
+*age_gt89;
+*use age;
+	format nsrr_age_gt89 $100.; 
+	if age gt 89 then nsrr_age_gt89='yes';
+	else if age le 89 then nsrr_age_gt89='no';
+
+*sex;
+*use gender;
+	format nsrr_sex $100.;
+    if gender = 1 then nsrr_sex='male';
+	else if gender = 2 then nsrr_sex='female';
+	else nsrr_sex = 'not reported';
+
+*race;
+*race7 created above for hbeat baseline from race variables;
+	*race3: 1-->"white" 2-->"black or african american" 3-->"other" others --> "not reported";
+    format nsrr_race $100.;
+	if race = 1 then nsrr_race = 'white';
+    else if race = 2 then nsrr_race = 'american indian or alaska native';
+	else if race = 3 then nsrr_race = 'black or african american';
+	else if race = 4 then nsrr_race = 'asian';
+	else if race = 5 then nsrr_race = 'native hawaiian or other pacific islander';
+    else if race = 6 then nsrr_race = 'other';
+    else if race = 7 then nsrr_race = 'multiple';
+	else nsrr_race  = 'not reported';
+
+*ethnicity;
+*use ethnicity;
+	format nsrr_ethnicity $100.;
+    if ethnicity = 1 then nsrr_ethnicity = 'hispanic or latino';
+    else if ethnicity = 2 then nsrr_ethnicity = 'not hispanic or latino';
+	else if ethnicity = . then nsrr_ethnicity = 'not reported';
+
+*anthropometry
+*bmi;
+*use bmi;
+	format nsrr_bmi 10.9;
+ 	nsrr_bmi = bmi;
+
+*clinical data/vital signs
+*bp_systolic;
+*bp_diastolic;
+	*not available;
+
+*lifestyle and behavioral health
+*current_smoker;
+*ever_smoker;
+	*not available;
+
+*polysomnography;
+*ahi_ap0uhp3x3u_f1t1;
+*use ahi_ap0uhp3x3u_f1t1;
+  format nsrr_ahi_hp3u 8.2;
+  nsrr_ahi_hp3u = ahi_ap0uhp3x3u_f1t1;
+
+*nsrr_ahi_hp3r_aasm15;
+*use ahi_ap0uhp3x3r_f1t1;
+  format nsrr_ahi_hp3r_aasm15 8.2;
+  nsrr_ahi_hp3r_aasm15 = ahi_ap0uhp3x3r_f1t1;
+ 
+*nsrr_ahi_hp4u_aasm15;
+*use ahi_ap0uhp3x4u_f1t1;
+  format nsrr_ahi_hp4u_aasm15 8.2;
+  nsrr_ahi_hp4u_aasm15 = ahi_ap0uhp3x4u_f1t1;
+  
+*nsrr_ahi_hp4r;
+*use ahi_ap0uhp3x4r_f1t1;
+  format nsrr_ahi_hp4r 8.2;
+  nsrr_ahi_hp4r = ahi_ap0uhp3x4r_f1t1;
+ 
+*nsrr_ttldursp_f1;
+*use ttldursp_f1t1;
+  format nsrr_ttldursp_f1 8.2;
+  nsrr_ttldursp_f1 = ttldursp_f1t1;
+
+*nsrr_pctdursp_s1;
+*use pctdursp_s1_f1t1;
+  format nsrr_pctdursp_s1 8.2;
+  nsrr_pctdursp_s1 = pctdursp_s1_f1t1;
+
+*nsrr_pctdursp_s2;
+*use pctdursp_s2_f1t1;
+  format nsrr_pctdursp_s2 8.2;
+  nsrr_pctdursp_s2 = pctdursp_s2_f1t1;
+
+*nsrr_pctdursp_s3;
+*use pctdursp_s3_f1t1;
+  format nsrr_pctdursp_s3 8.2;
+  nsrr_pctdursp_s3 = pctdursp_s3_f1t1;
+
+*nsrr_pctdursp_sr;
+*use pctdursp_sr_f1t1;
+  format nsrr_pctdursp_sr 8.2;
+  nsrr_pctdursp_sr = pctdursp_sr_f1t1;
+  
+	keep 
+		nsrrid
+		visitnumber
+		nsrr_age
+		nsrr_age_gt89
+		nsrr_sex
+		nsrr_race
+		nsrr_ethnicity
+		nsrr_bmi
+		nsrr_ahi_hp3u
+		nsrr_ahi_hp3r_aasm15
+		nsrr_ahi_hp4u_aasm15
+		nsrr_ahi_hp4r
+		nsrr_ttldursp_f1
+		nsrr_pctdursp_s1
+		nsrr_pctdursp_s2
+		nsrr_pctdursp_s3
+		nsrr_pctdursp_sr
+		;
+run;
+
+* 18 month dataset;
+data abc_month18_f_harmonized;
+	set abc_month18_f;
+*demographics
+*age;
+*use age; 
+	format nsrr_age 8.2;
+ 	if age gt 89 then nsrr_age=90;
+	else if age le 89 then nsrr_age = age;
+
+*age_gt89;
+*use age;
+	format nsrr_age_gt89 $100.; 
+	if age gt 89 then nsrr_age_gt89='yes';
+	else if age le 89 then nsrr_age_gt89='no';
+
+*sex;
+*use gender;
+	format nsrr_sex $100.;
+    if gender = 1 then nsrr_sex='male';
+	else if gender = 2 then nsrr_sex='female';
+	else nsrr_sex = 'not reported';
+
+*race;
+*race7 created above for hbeat baseline from race variables;
+	*race3: 1-->"white" 2-->"black or african american" 3-->"other" others --> "not reported";
+    format nsrr_race $100.;
+	if race = 1 then nsrr_race = 'white';
+    else if race = 2 then nsrr_race = 'american indian or alaska native';
+	else if race = 3 then nsrr_race = 'black or african american';
+	else if race = 4 then nsrr_race = 'asian';
+	else if race = 5 then nsrr_race = 'native hawaiian or other pacific islander';
+    else if race = 6 then nsrr_race = 'other';
+    else if race = 7 then nsrr_race = 'multiple';
+	else nsrr_race  = 'not reported';
+
+*ethnicity;
+*use ethnicity;
+	format nsrr_ethnicity $100.;
+    if ethnicity = 1 then nsrr_ethnicity = 'hispanic or latino';
+    else if ethnicity = 2 then nsrr_ethnicity = 'not hispanic or latino';
+	else if ethnicity = . then nsrr_ethnicity = 'not reported';
+
+*anthropometry
+*bmi;
+*use bmi;
+	format nsrr_bmi 10.9;
+ 	nsrr_bmi = bmi;
+
+*clinical data/vital signs
+*bp_systolic;
+*bp_diastolic;
+	*not available;
+
+*lifestyle and behavioral health
+*current_smoker;
+*ever_smoker;
+	*not available;
+
+*polysomnography;
+*ahi_ap0uhp3x3u_f1t1;
+*use ahi_ap0uhp3x3u_f1t1;
+  format nsrr_ahi_hp3u 8.2;
+  nsrr_ahi_hp3u = ahi_ap0uhp3x3u_f1t1;
+
+*nsrr_ahi_hp3r_aasm15;
+*use ahi_ap0uhp3x3r_f1t1;
+  format nsrr_ahi_hp3r_aasm15 8.2;
+  nsrr_ahi_hp3r_aasm15 = ahi_ap0uhp3x3r_f1t1;
+ 
+*nsrr_ahi_hp4u_aasm15;
+*use ahi_ap0uhp3x4u_f1t1;
+  format nsrr_ahi_hp4u_aasm15 8.2;
+  nsrr_ahi_hp4u_aasm15 = ahi_ap0uhp3x4u_f1t1;
+  
+*nsrr_ahi_hp4r;
+*use ahi_ap0uhp3x4r_f1t1;
+  format nsrr_ahi_hp4r 8.2;
+  nsrr_ahi_hp4r = ahi_ap0uhp3x4r_f1t1;
+ 
+*nsrr_ttldursp_f1;
+*use ttldursp_f1t1;
+  format nsrr_ttldursp_f1 8.2;
+  nsrr_ttldursp_f1 = ttldursp_f1t1;
+
+*nsrr_pctdursp_s1;
+*use pctdursp_s1_f1t1;
+  format nsrr_pctdursp_s1 8.2;
+  nsrr_pctdursp_s1 = pctdursp_s1_f1t1;
+
+*nsrr_pctdursp_s2;
+*use pctdursp_s2_f1t1;
+  format nsrr_pctdursp_s2 8.2;
+  nsrr_pctdursp_s2 = pctdursp_s2_f1t1;
+
+*nsrr_pctdursp_s3;
+*use pctdursp_s3_f1t1;
+  format nsrr_pctdursp_s3 8.2;
+  nsrr_pctdursp_s3 = pctdursp_s3_f1t1;
+
+*nsrr_pctdursp_sr;
+*use pctdursp_sr_f1t1;
+  format nsrr_pctdursp_sr 8.2;
+  nsrr_pctdursp_sr = pctdursp_sr_f1t1;
+  
+	keep 
+		nsrrid
+		visitnumber
+		nsrr_age
+		nsrr_age_gt89
+		nsrr_sex
+		nsrr_race
+		nsrr_ethnicity
+		nsrr_bmi
+		nsrr_ahi_hp3u
+		nsrr_ahi_hp3r_aasm15
+		nsrr_ahi_hp4u_aasm15
+		nsrr_ahi_hp4r
+		nsrr_ttldursp_f1
+		nsrr_pctdursp_s1
+		nsrr_pctdursp_s2
+		nsrr_pctdursp_s3
+		nsrr_pctdursp_sr
+		;
+run;
+
+* concatenate baseline, 9 month and 18 month harmonized datasets;
+data abc_harmonized;
+   set abc_baseline_f_harmonized abc_month09_f_harmonized abc_month18_f_harmonized;
+run;
 *******************************************************************************;
 * checking harmonized datasets ;
 *******************************************************************************;
 
 /* Checking for extreme values for continuous variables */
 
-proc means data=abc_baseline_f_harmonized;
+proc means data=abc_harmonized;
 VAR 	nsrr_age
 		nsrr_bmi
 		nsrr_ahi_hp3u
@@ -686,12 +967,16 @@ VAR 	nsrr_age
 		nsrr_ahi_hp4u_aasm15
 		nsrr_ahi_hp4r
 		nsrr_ttldursp_f1
+		nsrr_pctdursp_s1
+		nsrr_pctdursp_s2
+		nsrr_pctdursp_s3
+		nsrr_pctdursp_sr
 		;
 run;
 
 /* Checking categorical variables */
 
-proc freq data=abc_baseline_f_harmonized;
+proc freq data=abc_harmonized;
 table 	nsrr_age_gt89
 		nsrr_sex
 		nsrr_race
@@ -721,7 +1006,7 @@ run;
   %lowcase(abc_baseline_f);
   %lowcase(abc_month09_f);
   %lowcase(abc_month18_f);
-  %lowcase(abc_baseline_f_harmonized);
+  %lowcase(abc_harmonized);
 
 *******************************************************************************;
 * export datasets ;
@@ -744,8 +1029,8 @@ run;
     replace;
   run;
 
-  proc export data= abc_baseline_f_harmonized
-  outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-baseline-harmonized-&version..csv"
+  proc export data= abc_harmonized
+  outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-harmonized-&version..csv"
   dbms=csv
   replace;
  run;
