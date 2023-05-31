@@ -155,6 +155,12 @@ proc freq data= redcap;
     oai_oa0u_f1t1 = 60 * (oarbp + oarop + oanbp + oanop) / slpprdp;
     hi_hp3x0u_f1t1 = 60 * (hrembp + hrop + hnrbp + hnrop + urbp + urop + unrbp + unrop) / slpprdp;
 
+    if timebedp ne 0 then do;
+        if slplatp > . then slp_maint_eff = 100*(slpprdp/(timebedp-slplatp));
+        else if slplatp = . then slp_maint_eff = 100*(slpprdp/timebedp);
+    end;
+	
+	
     *rename variables;
     rename
       bpmavg = avglvlhr_f1t1
@@ -209,6 +215,12 @@ proc freq data= redcap;
       pctlt75
       avgsat
       minsat
+	  stloutp
+	  stonsetp
+	  stlonp
+	  slp_eff
+	  slp_maint_eff
+	  slplatp
       ;
   run;
 
@@ -651,10 +663,10 @@ data abc_baseline_f_harmonized;
   format nsrr_ahi_hp4r 8.2;
   nsrr_ahi_hp4r = ahi_ap0uhp3x4r_f1t1;
  
-*nsrr_ttldursp_f1;
+*nsrr_tst_f1;
 *use ttldursp_f1t1;
-  format nsrr_ttldursp_f1 8.2;
-  nsrr_ttldursp_f1 = ttldursp_f1t1;
+  format nsrr_tst_f1 8.2;
+  nsrr_tst_f1 = ttldursp_f1t1;
 
 *nsrr_pctdursp_s1;
 *use pctdursp_s1_f1t1;
@@ -675,6 +687,37 @@ data abc_baseline_f_harmonized;
 *use pctdursp_sr_f1t1;
   format nsrr_pctdursp_sr 8.2;
   nsrr_pctdursp_sr = pctdursp_sr_f1t1;
+
+*nsrr_begtimbd_f1;
+*use stloutp;
+  format nsrr_begtimbd_f1 time8.;
+  nsrr_begtimbd_f1 = stloutp;
+
+*nsrr_endtimbd_f1;
+*use stlonp;
+  format nsrr_endtimbd_f1 time8.;
+  nsrr_endtimbd_f1 = stlonp;
+
+*nsrr_begtimsp_f1;
+*use stonsetp;
+  format nsrr_begtimsp_f1 time8.;
+  nsrr_begtimsp_f1 = stonsetp;
+
+*nsrr_ttleffsp_f1;
+*use slp_eff;
+  format nsrr_ttleffsp_f1 8.2;
+  nsrr_ttleffsp_f1 = slp_eff;  
+
+*nsrr_ttlmefsp_f1;
+*use slp_maint_eff;
+  format nsrr_ttlmefsp_f1 8.2;
+  nsrr_ttlmefsp_f1 = slp_maint_eff;  
+  
+*nsrr_ttllatsp_f1;
+*use slplatp;
+  format nsrr_ttllatsp_f1 8.2;
+  nsrr_ttllatsp_f1 = slplatp; 
+
   
 	keep 
 		nsrrid
@@ -689,11 +732,17 @@ data abc_baseline_f_harmonized;
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
 		nsrr_ahi_hp4r
-		nsrr_ttldursp_f1
+		nsrr_tst_f1
 		nsrr_pctdursp_s1
 		nsrr_pctdursp_s2
 		nsrr_pctdursp_s3
 		nsrr_pctdursp_sr
+		nsrr_begtimbd_f1
+		nsrr_endtimbd_f1
+		nsrr_begtimsp_f1
+		nsrr_ttleffsp_f1
+		nsrr_ttlmefsp_f1
+		nsrr_ttllatsp_f1
 		;
 run;
 
@@ -777,10 +826,10 @@ data abc_month09_f_harmonized;
   format nsrr_ahi_hp4r 8.2;
   nsrr_ahi_hp4r = ahi_ap0uhp3x4r_f1t1;
  
-*nsrr_ttldursp_f1;
+*nsrr_tst_f1;
 *use ttldursp_f1t1;
-  format nsrr_ttldursp_f1 8.2;
-  nsrr_ttldursp_f1 = ttldursp_f1t1;
+  format nsrr_tst_f1 8.2;
+  nsrr_tst_f1 = ttldursp_f1t1;
 
 *nsrr_pctdursp_s1;
 *use pctdursp_s1_f1t1;
@@ -801,6 +850,37 @@ data abc_month09_f_harmonized;
 *use pctdursp_sr_f1t1;
   format nsrr_pctdursp_sr 8.2;
   nsrr_pctdursp_sr = pctdursp_sr_f1t1;
+
+*nsrr_begtimbd_f1;
+*use stloutp;
+  format nsrr_begtimbd_f1 time8.;
+  nsrr_begtimbd_f1 = stloutp;
+
+*nsrr_endtimbd_f1;
+*use stlonp;
+  format nsrr_endtimbd_f1 time8.;
+  nsrr_endtimbd_f1 = stlonp;
+
+*nsrr_begtimsp_f1;
+*use stonsetp;
+  format nsrr_begtimsp_f1 time8.;
+  nsrr_begtimsp_f1 = stonsetp;
+
+*nsrr_ttleffsp_f1;
+*use slp_eff;
+  format nsrr_ttleffsp_f1 8.2;
+  nsrr_ttleffsp_f1 = slp_eff;  
+
+*nsrr_ttlmefsp_f1;
+*use slp_maint_eff;
+  format nsrr_ttlmefsp_f1 8.2;
+  nsrr_ttlmefsp_f1 = slp_maint_eff;  
+  
+*nsrr_ttllatsp_f1;
+*use slplatp;
+  format nsrr_ttllatsp_f1 8.2;
+  nsrr_ttllatsp_f1 = slplatp; 
+
   
 	keep 
 		nsrrid
@@ -815,11 +895,17 @@ data abc_month09_f_harmonized;
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
 		nsrr_ahi_hp4r
-		nsrr_ttldursp_f1
+		nsrr_tst_f1
 		nsrr_pctdursp_s1
 		nsrr_pctdursp_s2
 		nsrr_pctdursp_s3
 		nsrr_pctdursp_sr
+		nsrr_begtimbd_f1
+		nsrr_endtimbd_f1
+		nsrr_begtimsp_f1
+		nsrr_ttleffsp_f1
+		nsrr_ttlmefsp_f1
+		nsrr_ttllatsp_f1
 		;
 run;
 
@@ -903,10 +989,10 @@ data abc_month18_f_harmonized;
   format nsrr_ahi_hp4r 8.2;
   nsrr_ahi_hp4r = ahi_ap0uhp3x4r_f1t1;
  
-*nsrr_ttldursp_f1;
+*nsrr_tst_f1;
 *use ttldursp_f1t1;
-  format nsrr_ttldursp_f1 8.2;
-  nsrr_ttldursp_f1 = ttldursp_f1t1;
+  format nsrr_tst_f1 8.2;
+  nsrr_tst_f1 = ttldursp_f1t1;
 
 *nsrr_pctdursp_s1;
 *use pctdursp_s1_f1t1;
@@ -927,6 +1013,36 @@ data abc_month18_f_harmonized;
 *use pctdursp_sr_f1t1;
   format nsrr_pctdursp_sr 8.2;
   nsrr_pctdursp_sr = pctdursp_sr_f1t1;
+
+*nsrr_begtimbd_f1;
+*use stloutp;
+  format nsrr_begtimbd_f1 time8.;
+  nsrr_begtimbd_f1 = stloutp;
+
+*nsrr_endtimbd_f1;
+*use stlonp;
+  format nsrr_endtimbd_f1 time8.;
+  nsrr_endtimbd_f1 = stlonp;
+
+*nsrr_begtimsp_f1;
+*use stonsetp;
+  format nsrr_begtimsp_f1 time8.;
+  nsrr_begtimsp_f1 = stonsetp;
+
+*nsrr_ttleffsp_f1;
+*use slp_eff;
+  format nsrr_ttleffsp_f1 8.2;
+  nsrr_ttleffsp_f1 = slp_eff;  
+
+*nsrr_ttlmefsp_f1;
+*use slp_maint_eff;
+  format nsrr_ttlmefsp_f1 8.2;
+  nsrr_ttlmefsp_f1 = slp_maint_eff;  
+  
+*nsrr_ttllatsp_f1;
+*use slplatp;
+  format nsrr_ttllatsp_f1 8.2;
+  nsrr_ttllatsp_f1 = slplatp; 
   
 	keep 
 		nsrrid
@@ -941,11 +1057,17 @@ data abc_month18_f_harmonized;
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
 		nsrr_ahi_hp4r
-		nsrr_ttldursp_f1
+		nsrr_tst_f1
 		nsrr_pctdursp_s1
 		nsrr_pctdursp_s2
 		nsrr_pctdursp_s3
 		nsrr_pctdursp_sr
+		nsrr_begtimbd_f1
+		nsrr_endtimbd_f1
+		nsrr_begtimsp_f1
+		nsrr_ttleffsp_f1
+		nsrr_ttlmefsp_f1
+		nsrr_ttllatsp_f1
 		;
 run;
 
@@ -966,11 +1088,17 @@ VAR 	nsrr_age
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
 		nsrr_ahi_hp4r
-		nsrr_ttldursp_f1
+		nsrr_tst_f1
 		nsrr_pctdursp_s1
 		nsrr_pctdursp_s2
 		nsrr_pctdursp_s3
 		nsrr_pctdursp_sr
+		nsrr_begtimbd_f1
+		nsrr_endtimbd_f1
+		nsrr_begtimsp_f1
+		nsrr_ttleffsp_f1
+		nsrr_ttlmefsp_f1
+		nsrr_ttllatsp_f1
 		;
 run;
 
