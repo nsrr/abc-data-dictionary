@@ -1,7 +1,7 @@
 ## 0.5.0 
 
 - Add harmonized sleep architecture variables
-- Add additional sleep architecture variables
+- Add additional sleep architecture variables in both time (hhmm) and hour of the day format
 - The CSV dataset is located here:
     - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.5.0\
 

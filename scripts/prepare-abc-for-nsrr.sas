@@ -160,6 +160,13 @@ proc freq data= redcap;
         else if slplatp = . then slp_maint_eff = 100*(slpprdp/timebedp);
     end;
 	
+    format stloutp_dec stonsetp_dec stlonp_dec 8.2;
+	if stloutp < 43200 then stloutp_dec = stloutp/3600 + 24;
+	else stloutp_dec = stloutp/3600;
+	if stonsetp < 43200 then stonsetp_dec = stonsetp/3600 + 24;
+	else stonsetp_dec = stonsetp/3600;
+	stlonp_dec = stlonp/3600 + 24;
+  
 	
     *rename variables;
     rename
@@ -221,6 +228,9 @@ proc freq data= redcap;
 	  slp_eff
 	  slp_maint_eff
 	  slplatp
+	  stloutp_dec
+	  stonsetp_dec
+	  stlonp_dec
       ;
   run;
 

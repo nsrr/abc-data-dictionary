@@ -29,7 +29,7 @@ class DictionaryTest < Minitest::Test
   # Add your own valid units to this array.
   VALID_UNITS = ["years", "hours", "events per hour",
     "kilograms per meter squared (kg/m2)", "", "days", "centimeters (cm)",
-    "kilograms (kg)", "minutes","minutes (min)", "percent (%)", "beats per minute (bpm)", 'kilograms per square meter', 'mg/dL', 'pg/mL', 'ng/mL', '%', 'ug/mL', 'uIU/mL', 'mg/L', nil]
+    "kilograms (kg)", "minutes","minutes (min)","hours", "percent (%)", "beats per minute (bpm)", 'kilograms per square meter', 'mg/dL', 'pg/mL', 'ng/mL', '%', 'ug/mL', 'uIU/mL', 'mg/L', nil]
   @variables.select { |v| %w(numeric integer).include?(v.type) }.each do |variable|
     define_method("test_units: #{variable.path}") do
       message = "\"#{variable.units}\"".red + " invalid units.\n" +
