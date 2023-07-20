@@ -1168,7 +1168,7 @@ run;
   run;
 
   proc export data= abc_harmonized
-  outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-harmonized-&version..csv"
+  outfile= "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\&version.\abc-harmonized-dataset-&version..csv"
   dbms=csv
   replace;
  run;
