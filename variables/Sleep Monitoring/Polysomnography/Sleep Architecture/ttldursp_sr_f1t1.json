@@ -3,7 +3,7 @@
   "display_name": "Total sleep duration in REM sleep from type I polysomnography",
   "description": "",
   "type": "numeric",
-  "units": "minutes",
+  "units": "minutes (min)",
   "labels": [
     "timerem",
     "slptimerem",

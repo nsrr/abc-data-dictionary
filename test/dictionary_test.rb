@@ -27,9 +27,13 @@ class DictionaryTest < Minitest::Test
   # Example 1: Create custom tests to show that `integer` and `numeric`
   #            variables have a valid unit type.
   # Add your own valid units to this array.
-  VALID_UNITS = ["years", "hours", "events per hour",
-    "kilograms per meter squared (kg/m2)", "", "days", "centimeters (cm)",
-    "kilograms (kg)", "minutes","minutes (min)","hours", "percent (%)", "beats per minute (bpm)", 'kilograms per square meter', 'mg/dL', 'pg/mL', 'ng/mL', '%', 'ug/mL', 'uIU/mL', 'mg/L', nil]
+  VALID_UNITS = ["days", "", "kilograms per meter squared (kg/m2)",
+   "centimeters (cm)", "kilograms (kg)", "picograms per milliliter (pg/mL)",
+    "micrograms per milliliter (ug/mL)", "milligrams per liter (mg/L)",
+     "milligrams per deciliter (mg/dL)", "percent (%)", "nanograms per milliliter (ng/mL)", 
+     "milli-international units per milliliter (uIU/mL)", "years", "kilograms per meters squared (kg/m2)",
+      "number of events per hour", "minutes (min)", "beats per minute (bpm)", "hours (hr)", 
+      "millimeters of mercury (mmHg)", nil]
   @variables.select { |v| %w(numeric integer).include?(v.type) }.each do |variable|
     define_method("test_units: #{variable.path}") do
       message = "\"#{variable.units}\"".red + " invalid units.\n" +

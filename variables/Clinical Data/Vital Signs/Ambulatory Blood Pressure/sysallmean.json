@@ -1,0 +1,7 @@
+{
+  "id": "sysallmean",
+  "display_name": "Mean systolic blood pressure",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury (mmHg)"
+}

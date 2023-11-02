@@ -3,5 +3,5 @@
   "display_name": "Insulin",
   "description": "",
   "type": "numeric",
-  "units": "uIU/mL"
+  "units": "milli-international units per milliliter (uIU/mL)"
 }

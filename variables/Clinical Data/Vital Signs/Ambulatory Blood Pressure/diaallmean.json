@@ -1,0 +1,7 @@
+{
+  "id": "diaallmean",
+  "display_name": "Mean diastolic blood pressure",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury (mmHg)"
+}

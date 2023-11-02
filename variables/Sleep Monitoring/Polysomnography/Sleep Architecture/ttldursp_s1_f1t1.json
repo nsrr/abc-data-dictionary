@@ -3,7 +3,7 @@
   "display_name": "Total sleep duration in stage 1 sleep from type I polysomnography",
   "description": "",
   "type": "numeric",
-  "units": "minutes",
+  "units": "minutes (min)",
   "labels": [
     "timest1",
     "slptimen1",

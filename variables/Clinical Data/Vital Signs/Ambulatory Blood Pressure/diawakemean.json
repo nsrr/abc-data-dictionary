@@ -1,0 +1,7 @@
+{
+  "id": "diawakemean",
+  "display_name": "Mean diastolic blood pressure during wake",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury (mmHg)"
+}

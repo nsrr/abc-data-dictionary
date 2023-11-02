@@ -1,0 +1,9 @@
+{
+  "id": "eq_index",
+  "display_name": "Summary Score from EQ-5D: a measure of health status from the EuroQol Group<br><br>[Rabin R, de Charro F. (PMID: 11491192)](10.3109/07853890109002087)",
+  "description": "",
+  "type": "numeric",
+  "labels": [
+    "eq5d"
+  ]
+}

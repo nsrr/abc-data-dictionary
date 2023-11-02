@@ -1,0 +1,7 @@
+{
+  "id": "diasleepmean",
+  "display_name": "Mean diastolic blood pressure during sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury (mmHg)"
+}

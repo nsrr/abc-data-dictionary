@@ -133,6 +133,27 @@ proc freq data= redcap;
     by studyid;
   run;
 
+
+data abc_bp;
+set abc.abcbp24hr;
+keep timepoint
+     studyid
+     sysallmean
+     diaallmean
+     mapallmean
+	 syssleepmean
+	 diasleepmean
+	 mapsleepmean
+	 syswakemean
+	 diawakemean
+	 mapwakemean;
+run;
+
+proc sort data=abc_bp;
+by studyid;
+run;
+
+
   data abc_psg;
     set abc.abcpsg;
 
@@ -422,6 +443,7 @@ proc freq data= redcap;
   proc sort data=abc_month18;
     by studyid;
   run;
+
   *add dataset here;
 /*Bloods datatset*/
 data abcbloods_baseline;
@@ -503,7 +525,14 @@ retain studyid;
 	  abcbloods_baseline
 	  abcgiqli_baseline
 	  abc.abcbloods(where=(bloods_studyvisit=0) rename=(elig_studyid=studyid))
-	  abc.abcgiqli(where=(giqli_studyvisit=0) rename=(elig_studyid=studyid));
+	  abc_bp(where=(timepoint=0))
+	  abc.abcgiqli(where=(giqli_studyvisit=0) rename=(elig_studyid=studyid))
+      abc.abceq5d(where=(eq5d_studyvisit=0) rename=(elig_studyid=studyid) keep= elig_studyid 
+      eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
+      abc.abcphq8(where=(phq8_studyvisit=0) keep= studyid phq8_interest phq8_down_hopeless
+	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
+      phq8_calc_total phq8_studyvisit)  
+;
       ;
     by studyid;
 
@@ -516,6 +545,8 @@ retain studyid;
       age_base
       visitdate_base
       visitdate
+	  phq8_studyvisit
+	  eq5d_studyvisit
       ;
   run;
 
@@ -531,11 +562,17 @@ retain studyid;
       abc_partial_baseline
       abc_month09
       abc_psg (where=(studyvisit=9))
+	  abc_bp(where=(timepoint=9))
       abcnsrrids_in
       abcbloods_month09
       abcgiqli_month09
       abc.abcbloods(where=(bloods_studyvisit=9) rename=(elig_studyid=studyid))
-	  abc.abcgiqli(where=(giqli_studyvisit=9) rename=(elig_studyid=studyid));
+	  abc.abcgiqli(where=(giqli_studyvisit=9) rename=(elig_studyid=studyid))
+      abc.abceq5d(where=(eq5d_studyvisit=9) rename=(elig_studyid=studyid) keep= elig_studyid 
+      eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
+      abc.abcphq8(where=(phq8_studyvisit=9) keep= studyid phq8_interest phq8_down_hopeless
+	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
+      phq8_calc_total phq8_studyvisit)    
       ;
     by studyid;
 
@@ -550,6 +587,8 @@ retain studyid;
       visitdate_base
       visitdate_nine
       visitdate
+	  phq8_studyvisit
+	  eq5d_studyvisi
       ;
   run;
 
@@ -568,8 +607,14 @@ retain studyid;
       abcnsrrids_in
       abcbloods_month18
       abcgiqli_month18
+	  abc_bp(where=(timepoint=18))
       abc.abcbloods(where=(bloods_studyvisit=18) rename=(elig_studyid=studyid))
-	  abc.abcgiqli(where=(giqli_studyvisit=18) rename=(elig_studyid=studyid));
+	  abc.abcgiqli(where=(giqli_studyvisit=18) rename=(elig_studyid=studyid))
+      abc.abceq5d(where=(eq5d_studyvisit=18) rename=(elig_studyid=studyid) keep= elig_studyid 
+      eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
+      abc.abcphq8(where=(phq8_studyvisit=18) keep= studyid phq8_interest phq8_down_hopeless
+	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
+      phq8_calc_total phq8_studyvisit)     
       ;
     by studyid;
 
@@ -584,12 +629,18 @@ retain studyid;
       visitdate_base
       visitdate_eighteen
       visitdate
+	  phq8_studyvisit
+	  eq5d_studyvisi
       ;
   run;
 
   proc sort data=abc_month18_f;
     by nsrrid;
   run;
+
+
+
+
 *******************************************************************************;
 * create harmonized datasets ;
 *******************************************************************************;

@@ -1,0 +1,7 @@
+{
+  "id": "syssleepmean",
+  "display_name": "Mean systolic blood pressure during sleep",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury (mmHg)"
+}

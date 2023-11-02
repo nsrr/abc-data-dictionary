@@ -1,0 +1,7 @@
+{
+  "id": "syswakemean",
+  "display_name": "Mean systolic blood pressure during wake",
+  "description": "",
+  "type": "numeric",
+  "units": "millimeters of mercury (mmHg)"
+}

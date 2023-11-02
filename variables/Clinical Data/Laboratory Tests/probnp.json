@@ -3,5 +3,5 @@
   "display_name": "proBNP",
   "description": "",
   "type": "numeric",
-  "units": "pg/mL"
+  "units": "picograms per milliliter (pg/mL)"
 }
