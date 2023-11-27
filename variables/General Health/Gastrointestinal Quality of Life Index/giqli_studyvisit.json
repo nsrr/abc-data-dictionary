@@ -1,9 +1,0 @@
-{
-  "id": "giqli_studyvisit",
-  "display_name": "Study ID",
-  "description": "",
-  "type": "numeric",
-  "labels": [
-    "giqli"
-  ]
-}

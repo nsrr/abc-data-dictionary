@@ -15,7 +15,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.5.0.pre;
+  %let version = 0.5.0.pre2;
 
 *******************************************************************************;
 * grab permanent REDCap dataset                                                ;
@@ -471,7 +471,7 @@ retain studyid;
  data abcbloods_month18;
  retain studyid;
     set abc.abcbloods;
-    if bloods_studyvisit =  9;
+    if bloods_studyvisit =  18;
 	studyid=elig_studyid;
     format bloods_datetest mmddyy10.;
 	drop elig_studyid;
@@ -479,40 +479,7 @@ retain studyid;
     proc sort data = abcbloods_month18;
     by studyid;
   run;
-/*GIQLI*/
-data abcgiqli_baseline;
-retain studyid;
-    set abc.abcbloods;
-    if bloods_studyvisit =  0;
-	studyid=elig_studyid;
-    format bloods_datetest mmddyy10.;
-	drop elig_studyid;
-  run;
-  proc sort data = abcgiqli_baseline;
-    by studyid;
-  run;
-data abcgiqli_month09;
-retain studyid;
-    set abc.abcbloods;
-    if bloods_studyvisit =  0;
-	studyid=elig_studyid;
-    format bloods_datetest mmddyy10.;
-	drop elig_studyid;
-  run;
-  proc sort data = abcgiqli_month09;
-    by studyid;
-  run;
-  data abcgiqli_month18;
-retain studyid;
-    set abc.abcbloods;
-    if bloods_studyvisit =  0;
-	studyid=elig_studyid;
-    format bloods_datetest mmddyy10.;
-	drop elig_studyid;
-  run;
-  proc sort data = abcgiqli_month18;
-    by studyid;
-  run;
+
 /*Baseline*/
   data abc_baseline_f;
   retain nsrrid;
@@ -524,10 +491,9 @@ retain studyid;
       abcnsrrids_in
 	  abcbloods_baseline
 	  abcgiqli_baseline
-	  abc.abcbloods(where=(bloods_studyvisit=0) rename=(elig_studyid=studyid))
 	  abc_bp(where=(timepoint=0))
 	  abc.abcgiqli(where=(giqli_studyvisit=0) rename=(elig_studyid=studyid))
-      abc.abceq5d(where=(eq5d_studyvisit=0) rename=(elig_studyid=studyid) keep= elig_studyid 
+      abc.abceq5d(where=(eq5d_studyvisit=0) rename=(elig_studyid=studyid) keep= elig_studyid
       eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
       abc.abcphq8(where=(phq8_studyvisit=0) keep= studyid phq8_interest phq8_down_hopeless
 	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
@@ -545,8 +511,11 @@ retain studyid;
       age_base
       visitdate_base
       visitdate
+	  timepoint
 	  phq8_studyvisit
 	  eq5d_studyvisit
+	   giqli_namecode
+	  giqli_studyvisit
       ;
   run;
 
@@ -565,10 +534,8 @@ retain studyid;
 	  abc_bp(where=(timepoint=9))
       abcnsrrids_in
       abcbloods_month09
-      abcgiqli_month09
-      abc.abcbloods(where=(bloods_studyvisit=9) rename=(elig_studyid=studyid))
 	  abc.abcgiqli(where=(giqli_studyvisit=9) rename=(elig_studyid=studyid))
-      abc.abceq5d(where=(eq5d_studyvisit=9) rename=(elig_studyid=studyid) keep= elig_studyid 
+      abc.abceq5d(where=(eq5d_studyvisit=9) rename=(elig_studyid=studyid) keep= elig_studyid
       eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
       abc.abcphq8(where=(phq8_studyvisit=9) keep= studyid phq8_interest phq8_down_hopeless
 	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
@@ -587,8 +554,11 @@ retain studyid;
       visitdate_base
       visitdate_nine
       visitdate
+	  timepoint
 	  phq8_studyvisit
-	  eq5d_studyvisi
+	  eq5d_studyvisit
+	  giqli_namecode
+	  giqli_studyvisit
       ;
   run;
 
@@ -606,11 +576,9 @@ retain studyid;
       abc_psg (where=(studyvisit=18))
       abcnsrrids_in
       abcbloods_month18
-      abcgiqli_month18
 	  abc_bp(where=(timepoint=18))
-      abc.abcbloods(where=(bloods_studyvisit=18) rename=(elig_studyid=studyid))
 	  abc.abcgiqli(where=(giqli_studyvisit=18) rename=(elig_studyid=studyid))
-      abc.abceq5d(where=(eq5d_studyvisit=18) rename=(elig_studyid=studyid) keep= elig_studyid 
+      abc.abceq5d(where=(eq5d_studyvisit=18) rename=(elig_studyid=studyid) keep= elig_studyid
       eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
       abc.abcphq8(where=(phq8_studyvisit=18) keep= studyid phq8_interest phq8_down_hopeless
 	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
@@ -625,12 +593,15 @@ retain studyid;
     drop
       studyid
       studyvisit
+	  timepoint
       age_base
       visitdate_base
       visitdate_eighteen
       visitdate
 	  phq8_studyvisit
-	  eq5d_studyvisi
+	  eq5d_studyvisit
+	   giqli_namecode
+	  giqli_studyvisit
       ;
   run;
 

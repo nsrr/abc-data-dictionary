@@ -1,9 +1,0 @@
-{
-  "id": "giqli_namecode",
-  "display_name": "Namecode",
-  "description": "",
-  "type": "numeric",
-  "labels": [
-    "giqli"
-  ]
-}
