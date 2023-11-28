@@ -1,7 +1,8 @@
-## 0.5.0 
+## 0.5.0 (December xx, 023)
 
 - Add harmonized sleep architecture variables
 - Add additional sleep architecture variables in both time (hhmm) and hour of the day format
+- Add more variables: PROMIS summary scores, Blood Pressure, Quality of Life Scores (EQ5D, PHQ8)
 - The CSV dataset is located here:
     - \\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_releases\0.5.0\
 

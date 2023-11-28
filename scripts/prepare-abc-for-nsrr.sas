@@ -498,6 +498,8 @@ retain studyid;
       abc.abcphq8(where=(phq8_studyvisit=0) keep= studyid phq8_interest phq8_down_hopeless
 	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
       phq8_calc_total phq8_studyvisit)  
+	       abc.abcpromis(where=(prom_studyvisit=0) rename=(elig_studyid=studyid) keep=elig_studyid 
+	  sri_sum sda_sum sri_tscore sda_tscore prom_studyvisit)
 ;
       ;
     by studyid;
@@ -514,8 +516,9 @@ retain studyid;
 	  timepoint
 	  phq8_studyvisit
 	  eq5d_studyvisit
-	   giqli_namecode
+	  giqli_namecode
 	  giqli_studyvisit
+	  prom_studyvisit
       ;
   run;
 
@@ -540,6 +543,8 @@ retain studyid;
       abc.abcphq8(where=(phq8_studyvisit=9) keep= studyid phq8_interest phq8_down_hopeless
 	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
       phq8_calc_total phq8_studyvisit)    
+	      abc.abcpromis(where=(prom_studyvisit=9) rename=(elig_studyid=studyid) keep=elig_studyid 
+	  sri_sum sda_sum sri_tscore sda_tscore prom_studyvisit)
       ;
     by studyid;
 
@@ -559,6 +564,7 @@ retain studyid;
 	  eq5d_studyvisit
 	  giqli_namecode
 	  giqli_studyvisit
+	  prom_studyvisit
       ;
   run;
 
@@ -582,7 +588,9 @@ retain studyid;
       eq5d_mobility eq5d_selfcare eq5d_usualact eq5d_paindiscom eq5d_anxiety EQ_index eq5d_studyvisit)
       abc.abcphq8(where=(phq8_studyvisit=18) keep= studyid phq8_interest phq8_down_hopeless
 	  phq8_sleep phq8_tired phq8_appetite phq8_bad_failure phq8_troubleconcentrating phq8_movingslowly
-      phq8_calc_total phq8_studyvisit)     
+      phq8_calc_total phq8_studyvisit)   
+      abc.abcpromis(where=(prom_studyvisit=18) rename=(elig_studyid=studyid) keep=elig_studyid 
+	  sri_sum sda_sum sri_tscore sda_tscore prom_studyvisit)
       ;
     by studyid;
 
@@ -600,8 +608,9 @@ retain studyid;
       visitdate
 	  phq8_studyvisit
 	  eq5d_studyvisit
-	   giqli_namecode
+	  giqli_namecode
 	  giqli_studyvisit
+	  prom_studyvisit
       ;
   run;
 

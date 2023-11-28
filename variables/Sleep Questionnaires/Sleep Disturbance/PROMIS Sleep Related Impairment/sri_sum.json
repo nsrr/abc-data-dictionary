@@ -1,0 +1,6 @@
+{
+  "id": "sri_sum",
+  "display_name": "PROMIS Sleep-Related Impairment: Total Score",
+  "description": "Summary score for the PROMIS Sleep-Related Impairment instrument, which measures perceptions of alertness, sleepiness, and tiredness during usual waking hours, and the perceived functional impairments during wakefulness associated with sleep problems or impaired alertness.<br><br>Each item ranges from 1 to 5. The total score is derived by summing all 8 items and higher scores indicate more severe sleep related impairment. [Yu L et al, 2012 (PMID: 22250775)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3261577/)",
+  "type": "numeric"
+}

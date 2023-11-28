@@ -1,7 +1,7 @@
 {
   "id": "eq_index",
-  "display_name": "Summary Score from EQ-5D: a measure of health status from the EuroQol Group<br><br>[Rabin R, de Charro F. (PMID: 11491192)](10.3109/07853890109002087)",
-  "description": "",
+  "display_name": "EQ-5D Index",
+  "description": "Summary score from EQ-5D: a measure of health status from the EuroQol Group. This weighted index lies on a scale anchored by the values 1 for full health, and 0 for dead. EQ-5D values cannot take a value higher than 1, but values less than 0 are possible for health states considered to be worse than dead.[Rabin R, de Charro F. (PMID: 11491192)](10.3109/07853890109002087)<br><br>[Search for all EQ-5D variables within this dataset](https://sleepdata.org/datasets/abc/variables?search=eq5d)",
   "type": "numeric",
   "labels": [
     "eq5d"
