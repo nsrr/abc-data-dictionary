@@ -6,6 +6,7 @@
   "domain": "epworth",
   "labels": [
     "epworth",
-    "ess_3sitinactive"
+    "ess_3sitinactive",
+    "ess"
   ]
 }

@@ -5,6 +5,8 @@
   "type": "numeric",
   "calculation": "phq8_interest + phq8_down_hopeless + phq8_sleep + phq8_tired + phq8_appetite + phq8_bad_failure + phq8_troubleconcentrating + phq8_movingslowly",
   "labels": [
-    "phq8"
+    "phq8",
+    "phq8_total",
+    "depression"
   ]
 }

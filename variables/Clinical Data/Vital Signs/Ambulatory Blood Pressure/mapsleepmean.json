@@ -1,6 +1,6 @@
 {
   "id": "mapsleepmean",
-  "display_name": "",
+  "display_name": "Mean arterial pressure during sleep",
   "description": "",
   "type": "numeric",
   "units": "millimeters of mercury (mmHg)"

@@ -2,5 +2,9 @@
   "id": "sda_sum",
   "display_name": "PROMIS Sleep Disturbance: Total Score",
   "description": "Summary score for the PROMIS Sleep Disturbance instrument, which measures perceptions of sleep quality, sleep depth, and restoration associated with sleep.<br><br>Each item ranges from 1 to 5. The total score is derived by summing all 8 items and higher scores indicate more severe symptoms. [Yu L et al, 2012 (PMID: 22250775)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3261577/)",
-  "type": "numeric"
+  "type": "numeric",
+  "labels": [
+    "promissd_total",
+    "promissd"
+  ]
 }

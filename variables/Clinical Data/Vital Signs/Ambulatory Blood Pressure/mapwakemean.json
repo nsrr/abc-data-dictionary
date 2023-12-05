@@ -1,6 +1,6 @@
 {
   "id": "mapwakemean",
-  "display_name": "",
+  "display_name": "Mean arterial pressure during wake",
   "description": "",
   "type": "numeric",
   "units": "millimeters of mercury (mmHg)"

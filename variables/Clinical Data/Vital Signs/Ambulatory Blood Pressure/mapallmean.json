@@ -1,6 +1,6 @@
 {
   "id": "mapallmean",
-  "display_name": "",
+  "display_name": "Mean arterial pressure",
   "description": "",
   "type": "numeric",
   "units": "millimeters of mercury (mmHg)"

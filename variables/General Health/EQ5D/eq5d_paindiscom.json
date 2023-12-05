@@ -4,6 +4,7 @@
   "description": "Item from EQ-5D: a measure of health status from the EuroQol Group, with higher scores indicating greater impairment. [Rabin R, de Charro F. (PMID: 11491192)](10.3109/07853890109002087)<br><br>[Search for all EQ-5D variables within this dataset](https://sleepdata.org/datasets/abc/variables?search=eq5d)",
   "type": "numeric",
   "labels": [
-    "eq5d"
+    "eq5d",
+    "pain"
   ]
 }

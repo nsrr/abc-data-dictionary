@@ -5,6 +5,7 @@
   "type": "numeric",
   "labels": [
     "giqli",
-    "giqli_total"
+    "giqli_total",
+    "quality_of_life"
   ]
 }

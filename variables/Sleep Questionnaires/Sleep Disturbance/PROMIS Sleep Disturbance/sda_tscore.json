@@ -1,6 +1,0 @@
-{
-  "id": "sda_tscore",
-  "display_name": "PROMIS Sleep Disturbance: T-Score",
-  "description": "Summary score for the PROMIS Sleep Disturbance instrument, which measures perceptions of sleep quality, sleep depth, and restoration associated with sleep.<br><br>Each item ranges from 1 to 5. The raw score is the sum of 8 items, higher score indicates more severe symptoms and the T-score is identified by looking up total raw score in a T-score table. The T-score is categorized as: <55 (none to slight), 55.0 to 59.9 (mild), 60.0 to 69.9 (moderate), and >=70 (severe). [Yu L et al, 2012 (PMID: 22250775)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3261577/)<br><br>",
-  "type": "numeric"
-}
