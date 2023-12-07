@@ -759,6 +759,35 @@ data abc_baseline_f_harmonized;
   format nsrr_ttllatsp_f1 8.2;
   nsrr_ttllatsp_f1 = slplatp; 
 
+*nsrr_cai;
+*use cai_ca0u_f1t1;
+  format nsrr_cai 8.2;
+  nsrr_cai = cai_ca0u_f1t1;
+
+*nsrr_oai;
+*use oai_oa0u_f1t1;
+  format nsrr_oai 8.2;
+  nsrr_oai = oai_oa0u_f1t1;
+
+*nsrr_oahi_hp4u;
+*use oahi_oa0uhp3x4u_f1t1;
+  format nsrr_oahi_hp4u 8.2;
+  nsrr_oahi_hp4u = oahi_oa0uhp3x4u_f1t1;
+
+*nsrr_oahi_hp3u;
+*use oahi_oa0uhp3x3u_f1t1;
+  format nsrr_oahi_hp3u 8.2;
+  nsrr_oahi_hp3u = oahi_oa0uhp3x3u_f1t1;
+
+*nsrr_avglvlsa;
+*use avglvlsa_f1t1;
+  format nsrr_avglvlsa 8.2;
+  nsrr_avglvlsa = avglvlsa_f1t1;
+
+*nsrr_minlvlsa;
+*use minlvlsa_f1t1;
+  format nsrr_minlvlsa 8.2;
+  nsrr_minlvlsa = minlvlsa_f1t1;
   
 	keep 
 		nsrrid
@@ -784,6 +813,12 @@ data abc_baseline_f_harmonized;
 		nsrr_ttleffsp_f1
 		nsrr_ttlmefsp_f1
 		nsrr_ttllatsp_f1
+		nsrr_cai
+		nsrr_oai
+		nsrr_oahi_hp4u
+		nsrr_oahi_hp3u
+		nsrr_avglvlsa
+		nsrr_minlvlsa
 		;
 run;
 
@@ -922,7 +957,36 @@ data abc_month09_f_harmonized;
   format nsrr_ttllatsp_f1 8.2;
   nsrr_ttllatsp_f1 = slplatp; 
 
-  
+ *nsrr_cai;
+*use cai_ca0u_f1t1;
+  format nsrr_cai 8.2;
+  nsrr_cai = cai_ca0u_f1t1;
+
+*nsrr_oai;
+*use oai_oa0u_f1t1;
+  format nsrr_oai 8.2;
+  nsrr_oai = oai_oa0u_f1t1;
+
+*nsrr_oahi_hp4u;
+*use oahi_oa0uhp3x4u_f1t1;
+  format nsrr_oahi_hp4u 8.2;
+  nsrr_oahi_hp4u = oahi_oa0uhp3x4u_f1t1;
+
+*nsrr_oahi_hp3u;
+*use oahi_oa0uhp3x3u_f1t1;
+  format nsrr_oahi_hp3u 8.2;
+  nsrr_oahi_hp3u = oahi_oa0uhp3x3u_f1t1;
+
+*nsrr_avglvlsa;
+*use avglvlsa_f1t1;
+  format nsrr_avglvlsa 8.2;
+  nsrr_avglvlsa = avglvlsa_f1t1;
+
+*nsrr_minlvlsa;
+*use minlvlsa_f1t1;
+  format nsrr_minlvlsa 8.2;
+  nsrr_minlvlsa = minlvlsa_f1t1;
+   
 	keep 
 		nsrrid
 		visitnumber
@@ -947,6 +1011,12 @@ data abc_month09_f_harmonized;
 		nsrr_ttleffsp_f1
 		nsrr_ttlmefsp_f1
 		nsrr_ttllatsp_f1
+		nsrr_cai
+		nsrr_oai
+		nsrr_oahi_hp4u
+		nsrr_oahi_hp3u
+		nsrr_avglvlsa
+		nsrr_minlvlsa
 		;
 run;
 
@@ -1084,6 +1154,36 @@ data abc_month18_f_harmonized;
 *use slplatp;
   format nsrr_ttllatsp_f1 8.2;
   nsrr_ttllatsp_f1 = slplatp; 
+
+ *nsrr_cai;
+*use cai_ca0u_f1t1;
+  format nsrr_cai 8.2;
+  nsrr_cai = cai_ca0u_f1t1;
+
+*nsrr_oai;
+*use oai_oa0u_f1t1;
+  format nsrr_oai 8.2;
+  nsrr_oai = oai_oa0u_f1t1;
+
+*nsrr_oahi_hp4u;
+*use oahi_oa0uhp3x4u_f1t1;
+  format nsrr_oahi_hp4u 8.2;
+  nsrr_oahi_hp4u = oahi_oa0uhp3x4u_f1t1;
+
+*nsrr_oahi_hp3u;
+*use oahi_oa0uhp3x3u_f1t1;
+  format nsrr_oahi_hp3u 8.2;
+  nsrr_oahi_hp3u = oahi_oa0uhp3x3u_f1t1;
+
+*nsrr_avglvlsa;
+*use avglvlsa_f1t1;
+  format nsrr_avglvlsa 8.2;
+  nsrr_avglvlsa = avglvlsa_f1t1;
+
+*nsrr_minlvlsa;
+*use minlvlsa_f1t1;
+  format nsrr_minlvlsa 8.2;
+  nsrr_minlvlsa = minlvlsa_f1t1;
   
 	keep 
 		nsrrid
@@ -1109,6 +1209,12 @@ data abc_month18_f_harmonized;
 		nsrr_ttleffsp_f1
 		nsrr_ttlmefsp_f1
 		nsrr_ttllatsp_f1
+		nsrr_cai
+		nsrr_oai
+		nsrr_oahi_hp4u
+		nsrr_oahi_hp3u
+		nsrr_avglvlsa
+		nsrr_minlvlsa
 		;
 run;
 
@@ -1140,6 +1246,12 @@ VAR 	nsrr_age
 		nsrr_ttleffsp_f1
 		nsrr_ttlmefsp_f1
 		nsrr_ttllatsp_f1
+		nsrr_cai
+		nsrr_oai
+		nsrr_oahi_hp4u
+		nsrr_oahi_hp3u
+		nsrr_avglvlsa
+		nsrr_minlvlsa
 		;
 run;
 
