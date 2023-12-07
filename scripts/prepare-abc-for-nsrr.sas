@@ -15,7 +15,7 @@
   libname abcids "\\rfawin\bwh-sleepepi-home\projects\trials\abc\nsrr-prep\_ids";
   options nofmterr;
 
-  %let version = 0.5.0.pre2;
+  %let version = 0.5.0.pre3;
 
 *******************************************************************************;
 * grab permanent REDCap dataset                                                ;
@@ -451,8 +451,8 @@ retain studyid;
     set abc.abcbloods;
     if bloods_studyvisit =  0;
 	studyid=elig_studyid;
-    format bloods_datetest mmddyy10.;
-	drop elig_studyid;
+	drop elig_studyid
+bloods_datetest;
   run;
   proc sort data = abcbloods_baseline;
     by studyid;
@@ -462,8 +462,8 @@ retain studyid;
     set abc.abcbloods;
     if bloods_studyvisit =  9;
 	studyid=elig_studyid;
-    format bloods_datetest mmddyy10.;
-	drop elig_studyid;
+	drop elig_studyid
+bloods_datetest;
   run;
   proc sort data = abcbloods_month09;
     by studyid;
@@ -473,8 +473,8 @@ retain studyid;
     set abc.abcbloods;
     if bloods_studyvisit =  18;
 	studyid=elig_studyid;
-    format bloods_datetest mmddyy10.;
-	drop elig_studyid;
+	drop elig_studyid
+bloods_datetest;
   run;
     proc sort data = abcbloods_month18;
     by studyid;
