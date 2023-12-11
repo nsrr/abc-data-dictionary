@@ -3,5 +3,6 @@
   "display_name": "LDL Cholesterol Calc",
   "description": "",
   "type": "numeric",
+  "domain": "systemmissing",
   "units": "milligrams per deciliter (mg/dL)"
 }

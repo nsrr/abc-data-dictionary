@@ -565,6 +565,7 @@ bloods_datetest;
 	  giqli_namecode
 	  giqli_studyvisit
 	  prom_studyvisit
+	  bloods_studyvisit
       ;
   run;
 
@@ -611,6 +612,7 @@ bloods_datetest;
 	  giqli_namecode
 	  giqli_studyvisit
 	  prom_studyvisit
+	  bloods_studyvisit
       ;
   run;
 

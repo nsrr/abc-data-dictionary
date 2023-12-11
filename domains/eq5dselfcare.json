@@ -1,0 +1,29 @@
+[
+  {
+    "value": "0",
+    "display_name": "I have no problem with self-care",
+    "description": ""
+  },
+  {
+    "value": "1",
+    "display_name": "I have some problems washing or dressing myself",
+    "description": ""
+  },
+  {
+    "value": "2",
+    "display_name": "I am unable to wash or dress myself",
+    "description": ""
+  },
+  {
+    "value": "-10",
+    "display_name": "Confusion",
+    "description": "",
+    "missing": true
+  },
+  {
+    "value": "-9",
+    "display_name": "Missing",
+    "description": "",
+    "missing": true
+  }
+]

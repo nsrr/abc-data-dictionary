@@ -3,5 +3,6 @@
   "display_name": "VLDL Cholesterol Cal",
   "description": "",
   "type": "numeric",
+  "domain": "systemmissing",
   "units": "milligrams per deciliter (mg/dL)"
 }
