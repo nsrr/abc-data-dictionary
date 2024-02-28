@@ -490,7 +490,6 @@ bloods_datetest;
       abc_psg (where=(studyvisit=0))
       abcnsrrids_in
 	  abcbloods_baseline
-	  abcgiqli_baseline
 	  abc_bp(where=(timepoint=0))
 	  abc.abcgiqli(where=(giqli_studyvisit=0) rename=(elig_studyid=studyid))
       abc.abceq5d(where=(eq5d_studyvisit=0) rename=(elig_studyid=studyid) keep= elig_studyid
@@ -519,6 +518,7 @@ bloods_datetest;
 	  giqli_namecode
 	  giqli_studyvisit
 	  prom_studyvisit
+	  bloods_studyvisit
       ;
   run;
 
@@ -677,8 +677,11 @@ data abc_baseline_f_harmonized;
 
 *clinical data/vital signs
 *bp_systolic;
+	format nsrr_bp_sysstolic 10.9;
+	nsrr_bp_systolic = sysallmean;
 *bp_diastolic;
-	*not available;
+	format nsrr_bp_diastolic 10.9;
+	nsrr_bp_diastolic = diaallmean;
 
 *lifestyle and behavioral health
 *current_smoker;
@@ -800,6 +803,8 @@ data abc_baseline_f_harmonized;
 		nsrr_race
 		nsrr_ethnicity
 		nsrr_bmi
+		nsrr_bp_diastolic
+		nsrr_bp_systolic
 		nsrr_ahi_hp3u
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
@@ -875,8 +880,11 @@ data abc_month09_f_harmonized;
 
 *clinical data/vital signs
 *bp_systolic;
+	format nsrr_bp_sysstolic 10.9;
+	nsrr_bp_systolic = sysallmean;
 *bp_diastolic;
-	*not available;
+	format nsrr_bp_diastolic 10.9;
+	nsrr_bp_diastolic = diaallmean;
 
 *lifestyle and behavioral health
 *current_smoker;
@@ -998,6 +1006,8 @@ data abc_month09_f_harmonized;
 		nsrr_race
 		nsrr_ethnicity
 		nsrr_bmi
+		nsrr_bp_diastolic
+		nsrr_bp_systolic
 		nsrr_ahi_hp3u
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
@@ -1073,8 +1083,11 @@ data abc_month18_f_harmonized;
 
 *clinical data/vital signs
 *bp_systolic;
+	format nsrr_bp_sysstolic 10.9;
+	nsrr_bp_systolic = sysallmean;
 *bp_diastolic;
-	*not available;
+	format nsrr_bp_diastolic 10.9;
+	nsrr_bp_diastolic = diaallmean;
 
 *lifestyle and behavioral health
 *current_smoker;
@@ -1196,6 +1209,8 @@ data abc_month18_f_harmonized;
 		nsrr_race
 		nsrr_ethnicity
 		nsrr_bmi
+		nsrr_bp_diastolic
+		nsrr_bp_systolic
 		nsrr_ahi_hp3u
 		nsrr_ahi_hp3r_aasm15
 		nsrr_ahi_hp4u_aasm15
