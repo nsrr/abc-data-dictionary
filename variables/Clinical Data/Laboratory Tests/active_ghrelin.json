@@ -3,5 +3,5 @@
   "display_name": "Active Ghrelin",
   "description": "",
   "type": "numeric",
-  "units": "pg/mL"
+  "units": "picograms per milliliter (pg/mL)"
 }

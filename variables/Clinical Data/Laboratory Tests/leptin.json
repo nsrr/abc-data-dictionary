@@ -3,5 +3,5 @@
   "display_name": "Leptin",
   "description": "",
   "type": "numeric",
-  "units": "ng/mL"
+  "units": "nanograms per milliliter (ng/mL)"
 }
